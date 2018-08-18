@@ -9,7 +9,7 @@ namespace Scheduler
 {
     class Repository
     {
-        private string ConnStr { get; set; }
+        public string ConnStr { get; private set; }
         public Repository()
         {
             var configBuilder = new ConfigurationBuilder()
