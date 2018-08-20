@@ -28,6 +28,18 @@ namespace Scheduler
                 return employeeid;
             }
         }
+        public void GetNumberOfVacaEmployees()
+        {
+
+        }
+        public void GetNumberOfOffEmployees()
+        {
+
+        }
+        public void GetNumberOfSickEmployees()
+        {
+
+        }
 
         public bool DoesEmployeeExist(string firstname, string lastname)
         {

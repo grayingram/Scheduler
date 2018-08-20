@@ -102,15 +102,36 @@ namespace Scheduler
         }
         public void AddOffDay()
         {
-
+            string firstname = Lawyer.GetResponse("What is the first name of the employee whose off days you want to set?");
+            string lastname = Lawyer.GetResponse("What is the last name  of the employee whose off days you want to set?");
+            while (!(Reader.DoesEmployeeExist(firstname, lastname)))
+            {
+                Console.WriteLine("Sorry no such employee exist, try again");
+                firstname = Lawyer.GetResponse("What is the first name of the employee whose off days you want to set?");
+                lastname = Lawyer.GetResponse("What is the last name  of the employee whose off days you want to set?");
+            }
         }
         public void AddVacation()
         {
-
+            string firstname = Lawyer.GetResponse("What is the first name of the employee whose vacation do you want to schedule?");
+            string lastname = Lawyer.GetResponse("What is the last name  of the employee whose vacation do you want to schedule?");
+            while (!(Reader.DoesEmployeeExist(firstname, lastname)))
+            {
+                Console.WriteLine("Sorry no such employee exist, try again");
+                firstname = Lawyer.GetResponse("What is the first name of the employee whose vacation do you want to schedule?");
+                lastname = Lawyer.GetResponse("What is the last name  of the employee whose vacation do you want to schedule?");
+            }
         }
         public void AddSickDay()
         {
-
+            string firstname = Lawyer.GetResponse("What is the first name of the employee whose sick days you want to set?");
+            string lastname = Lawyer.GetResponse("What is the last name  of the employee whose sick days you want to set?");
+            while (!(Reader.DoesEmployeeExist(firstname, lastname)))
+            {
+                Console.WriteLine("Sorry no such employee exist, try again");
+                firstname = Lawyer.GetResponse("What is the first name of the employee whose sick days you want to set?");
+                lastname = Lawyer.GetResponse("What is the last name  of the employee whose sick days you want to set?");
+            }
         }
 
         private string GetDay(int day)
