@@ -61,5 +61,36 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+        public void AddSickDay(int employeeid, DateTime sickday)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO sick (EmployeeID, SickDay) VALUES(@employeeid, @sickday);";
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
+                cmd.Parameters.AddWithValue("sickday", sickday);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void AddOffDay(int employeeid, DateTime start, DateTime end)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO offdays (EmployeeID, StartDay, EndDay) VALUES(@employeeid, @start, @end);";
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
+                cmd.Parameters.AddWithValue("start", start);
+                cmd.Parameters.AddWithValue("end", end);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

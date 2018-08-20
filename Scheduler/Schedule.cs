@@ -12,6 +12,7 @@ namespace Scheduler
         public Lawyer Lawyer { get; set; } = new Lawyer();
         private Creator Creator { get; set; } = new Creator();
         private Reader Reader { get; set; } = new Reader();
+
         public Schedule()
         {            
             DaysWorkable = Lawyer.GetInt("How many days of the week is this company open for?");
