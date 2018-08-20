@@ -7,5 +7,6 @@ namespace Scheduler
 {
     class Reader
     {
+        Repository Repository = new Repository();
     }
 }

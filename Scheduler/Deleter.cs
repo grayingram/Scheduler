@@ -7,5 +7,6 @@ namespace Scheduler
 {
     class Deleter
     {
+        Repository Repository = new Repository();
     }
 }

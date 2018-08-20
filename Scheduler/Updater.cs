@@ -7,5 +7,6 @@ namespace Scheduler
 {
     class Updater
     {
+        Repository Repository = new Repository();
     }
 }
