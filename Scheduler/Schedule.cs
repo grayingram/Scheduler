@@ -100,6 +100,18 @@ namespace Scheduler
             Creator.AddWorkableDays(employeeid, mon, tues, wed, thurs, fri);
             
         }
+        public void AddOffDay()
+        {
+
+        }
+        public void AddVacation()
+        {
+
+        }
+        public void AddSickDay()
+        {
+
+        }
 
         private string GetDay(int day)
         {
