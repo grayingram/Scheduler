@@ -36,6 +36,90 @@ namespace Scheduler
                 }
             } while (Lawyer.GetYesNo("Do you want to add another employee?"));
         }
+        public void SetWorkableDays()
+        {
+            string firstname = Lawyer.GetResponse("What is the first name of the employee whose days you want to establish?");
+            string lastname = Lawyer.GetResponse("What is the last name  of the employee whose days you want to establish?");
+            while(!(Reader.DoesEmployeeExist(firstname, lastname)))
+            {
+                Console.WriteLine("Sorry no such employee exist, try again");
+                firstname = Lawyer.GetResponse("What is the first name of the employee whose days you want to establish?");
+                lastname = Lawyer.GetResponse("What is the last name  of the employee whose days you want to establish?");
+            }
+            if(Reader.DoesWorkablebyEIDExist(Reader.GetEmployeeId(firstname, lastname)))
+            {
+                Console.WriteLine("Sorry but that employee already has their workable days established.");
+            }
+            int employeeid = Reader.GetEmployeeId(firstname, lastname);
+            int mon = 0;
+            int tues = 0;
+            int wed = 0;
+            int thurs = 0;
+            int fri = 0;
+            for(int i = 0; i < 5; i++)
+            {
+                string day = GetDay(i +1);
+                if(i == 0)
+                {
+                    if(Lawyer.GetYesNo("Is the employee " + firstname + " " + lastname + " able to work " + day))
+                    {
+                        mon = 1;
+                    }
+                }
+                else if(i == 1)
+                {
+                    if(Lawyer.GetYesNo("Is the employee " + firstname + " " + lastname + " able to work " + day))
+                    {
+                        tues = 1;
+                    }
+
+                }
+                else if (i == 2)
+                {
+                    if(Lawyer.GetYesNo("Is the employee " + firstname + " " + lastname + " able to work " + day))
+                    {
+                        wed = 1;
+                    }
+                }
+                else if (i == 3)
+                {
+                    if(Lawyer.GetYesNo("Is the employee " + firstname + " " + lastname + " able to work " + day))
+                    {
+                        thurs = 1;
+                    }
+                }
+                else if (i == 4)
+                {
+                    if(Lawyer.GetYesNo("Is the employee " + firstname + " " + lastname + " able to work " + day))
+                    {
+                        fri = 1;
+                    }
+                }
+            }
+            Creator.AddWorkableDays(employeeid, mon, tues, wed, thurs, fri);
+            
+        }
+
+        private string GetDay(int day)
+        {
+            if(day == 1)
+            {
+                return "Monday";
+            }
+            else if(day == 2)
+            {
+                return "Tuesday";
+            }
+            else if(day == 3)
+            {
+                return "Wednesday";
+            }
+            else if(day == 4)
+            {
+                return "Thursday";
+            }
+            return "Friday";
+        }
         //for(int i = 0; i<NumberOfEmployees; i++)
         //    {
         //        Employee tempemployee = new Employee();
