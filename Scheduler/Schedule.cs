@@ -23,7 +23,10 @@ namespace Scheduler
                 string firstname = Lawyer.GetResponse("What is the first name of this employee?");
                 string lastname = Lawyer.GetResponse("What is the last name of this employee?");
                 int vacations = Lawyer.GetInt("How many vacation days does this employee have for the year?");
-                Creator.AddEmployee(firstname, lastname, vacations);
+                if(Lawyer.GetYesNo("Are you sure you wnat to add " + firstname + " " + lastname + "to the employees"))
+                {
+                    Creator.AddEmployee(firstname, lastname, vacations);
+                }
             } while (Lawyer.GetYesNo("Do you want to add another employee?"));
         }
         //for(int i = 0; i<NumberOfEmployees; i++)
