@@ -8,6 +8,32 @@ namespace Scheduler
     class Reader
     {
         Repository Repository = new Repository();
+        public List<Employee> Employees { get; private set; }
+
+        public Reader()
+        {
+            Employees = ReadEmployees();
+        }
+        public List<Employee> ReadEmployees()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            List<Employee> employees = new List<Employee>();
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM categories;";
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    employees.Add(employee);
+                }
+                return employees;
+            }
+        }
 
         public int GetEmployeeId(string firstname, string lastname)
         {

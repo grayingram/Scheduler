@@ -9,7 +9,7 @@ namespace Scheduler
         public List<Employee> Employees { get; set; } = new List<Employee>();
         public static int NumberOfEmployees { get; private set; }//debateable/deletable
         public static int DaysWorkable { get; private set; }
-        public Lawyer Lawyer { get; set; } = new Lawyer();
+        private Lawyer Lawyer { get; set; } = new Lawyer();
         private Creator Creator { get; set; } = new Creator();
         private Reader Reader { get; set; } = new Reader();
 
@@ -22,6 +22,10 @@ namespace Scheduler
         {
             do
             {
+                if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+                {
+                    ReadEmployees(Reader);
+                }
                 string firstname = Lawyer.GetResponse("What is the first name of this employee?");
                 string lastname = Lawyer.GetResponse("What is the last name of this employee?");
                 while(Reader.DoesEmployeeExist(firstname, lastname))
@@ -42,11 +46,19 @@ namespace Scheduler
         }
         public void SetWorkableDays()
         {
+            if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+            {
+                ReadEmployees(Reader);
+            }
             string firstname = Lawyer.GetResponse("What is the first name of the employee whose days you want to establish?");
             string lastname = Lawyer.GetResponse("What is the last name  of the employee whose days you want to establish?");
             while(!(Reader.DoesEmployeeExist(firstname, lastname)))
             {
                 Console.WriteLine("Sorry no such employee exist, try again");
+                if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+                {
+                    ReadEmployees(Reader);
+                }
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose days you want to establish?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose days you want to establish?");
             }
@@ -111,11 +123,19 @@ namespace Scheduler
         }
         public void AddOffDay()
         {
+            if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+            {
+                ReadEmployees(Reader);
+            }
             string firstname = Lawyer.GetResponse("What is the first name of the employee whose off days you want to set?");
             string lastname = Lawyer.GetResponse("What is the last name  of the employee whose off days you want to set?");
             while (!(Reader.DoesEmployeeExist(firstname, lastname)))
             {
                 Console.WriteLine("Sorry no such employee exist, try again");
+                if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+                {
+                    ReadEmployees(Reader);
+                }
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose off days you want to set?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose off days you want to set?");
             }
@@ -132,11 +152,19 @@ namespace Scheduler
         }
         public void AddVacation()
         {
+            if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+            {
+                ReadEmployees(Reader);
+            }
             string firstname = Lawyer.GetResponse("What is the first name of the employee whose vacation do you want to schedule?");
             string lastname = Lawyer.GetResponse("What is the last name  of the employee whose vacation do you want to schedule?");
             while (!(Reader.DoesEmployeeExist(firstname, lastname)))
             {
                 Console.WriteLine("Sorry no such employee exist, try again");
+                if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
+                {
+                    ReadEmployees(Reader);
+                }
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose vacation do you want to schedule?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose vacation do you want to schedule?");
             }
@@ -191,6 +219,19 @@ namespace Scheduler
             }
             return "Friday";
         }
+        private void ReadEmployees(Reader reader)
+        {
+            foreach (var employee in reader.Employees)
+            {
+                Console.Write("Firstname:" + employee.FirstName + " LastName:" + employee.LastName);
+                if (!(Lawyer.GetYesNo("Do you want see another employee?")))
+                {
+                    break;
+                }
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
         //for(int i = 0; i<NumberOfEmployees; i++)
         //    {
         //        Employee tempemployee = new Employee();
@@ -199,5 +240,5 @@ namespace Scheduler
         //        tempemployee.LastName = lawyer.GetResponse("What is the first name of this employee?");
         //       // tempemployee.DaysWorkable = lawyer.GetResponse("Blah", DaysWorkable);
         //    }
-}
+    }
 }
