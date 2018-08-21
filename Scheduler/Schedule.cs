@@ -223,7 +223,7 @@ namespace Scheduler
         {
             foreach (var employee in reader.Employees)
             {
-                Console.Write("Firstname:" + employee.FirstName + " LastName:" + employee.LastName);
+                Console.Write("First Name: " + employee.FirstName + " Last Name: " + employee.LastName);
                 if (!(Lawyer.GetYesNo("Do you want see another employee?")))
                 {
                     break;
