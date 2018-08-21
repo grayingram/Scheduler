@@ -28,17 +28,62 @@ namespace Scheduler
                 return employeeid;
             }
         }
-        public void GetNumberOfVacaEmployees()
+        public int GetNumberOfVacaEmployees(DateTime startDate, DateTime endDate)
         {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
+                cmd.Parameters.AddWithValue("startDate", startDate);
+                cmd.Parameters.AddWithValue("endDate", endDate);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
         }
-        public void GetNumberOfOffEmployees()
+        public int GetNumberOfOffEmployees(DateTime startDate, DateTime endDate)
         {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
+                cmd.Parameters.AddWithValue("startDate", startDate);
+                cmd.Parameters.AddWithValue("endDate", endDate);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
         }
-        public void GetNumberOfSickEmployees()
+        public int GetNumberOfSickEmployees(DateTime startDate, DateTime endDate)
         {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
+                cmd.Parameters.AddWithValue("startDate", startDate);
+                cmd.Parameters.AddWithValue("endDate", endDate);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
         }
 
         public bool DoesEmployeeExist(string firstname, string lastname)
