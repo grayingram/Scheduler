@@ -15,8 +15,8 @@ namespace Scheduler
 
         public Schedule()
         {            
-            DaysWorkable = Lawyer.GetInt("How many days of the week is this company open for?");
-            NumberOfEmployees = Lawyer.GetInt("How many employees work in this company?");
+            //DaysWorkable = Lawyer.GetInt("How many days of the week is this company open for?");
+            //NumberOfEmployees = Lawyer.GetInt("How many employees work in this company?");
         }
         public void AddEmployee()
         {
@@ -31,11 +31,13 @@ namespace Scheduler
                     lastname = Lawyer.GetResponse("What is the last name of this employee?");
                 }
                 int vacations = Lawyer.GetInt("How many vacation days does this employee have for the year?");
-                if(Lawyer.GetYesNo("Are you sure you wnat to add " + firstname + " " + lastname + " to the employees"))
+                if(Lawyer.GetYesNo("Are you sure you want to add " + firstname + " " + lastname + " to the employees"))
                 {
                     Creator.AddEmployee(firstname, lastname, vacations);
                     NumberOfEmployees++;
+                    Console.Clear();
                 }
+                Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another employee?"));
         }
         public void SetWorkableDays()
@@ -101,9 +103,11 @@ namespace Scheduler
             if(Lawyer.GetYesNo("Are you sure you want to set the days for " + firstname + " " + lastname + " and their workable late days to be Monday: " + mon + " Tuesday:" + tues + " Wednesday: " + wed + " Thursday: " + thurs + " Friday: " + fri))
             {
                 Creator.AddWorkableDays(employeeid, mon, tues, wed, thurs, fri);
+                Console.Clear();
             }
-            
-            
+            Console.Clear();
+
+
         }
         public void AddOffDay()
         {
@@ -123,6 +127,7 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             Creator.AddVacation(employeeid, startdate, enddate);
+            Console.Clear();
 
         }
         public void AddVacation()
@@ -143,6 +148,7 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             Creator.AddOffDay(employeeid, startdate, enddate);
+            Console.Clear();
         }
         public void AddSickDay()
         {
@@ -162,6 +168,7 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             Creator.AddSickDay(employeeid, startdate, enddate);
+            Console.Clear();
         }
 
         private string GetDay(int day)
