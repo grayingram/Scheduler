@@ -23,7 +23,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM categories;";
+                cmd.CommandText = "SELECT * FROM employees;";
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
