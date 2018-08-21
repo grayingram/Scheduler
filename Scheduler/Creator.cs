@@ -61,7 +61,7 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
-        public void AddSickDay(int employeeid, DateTime sickday)
+        public void AddSickDay(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
@@ -70,9 +70,10 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO sick (EmployeeID, SickDay) VALUES(@employeeid, @sickday);";
+                cmd.CommandText = "INSERT INTO sick (EmployeeID, StartDate, EndDate) VALUES(@employeeid, @start, @end);";
                 cmd.Parameters.AddWithValue("employeeid", employeeid);
-                cmd.Parameters.AddWithValue("sickday", sickday);
+                cmd.Parameters.AddWithValue("start", start);
+                cmd.Parameters.AddWithValue("end", end);
                 cmd.ExecuteNonQuery();
             }
         }

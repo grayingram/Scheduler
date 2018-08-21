@@ -110,6 +110,15 @@ namespace Scheduler
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose off days you want to set?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose off days you want to set?");
             }
+            int employeeid = Reader.GetEmployeeId(firstname, lastname);
+            int year = Lawyer.GetYear("What year is this vacation taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this vacation taking place?");
+            int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
+            DateTime startdate = new DateTime(year, month, startday);
+            DateTime enddate = new DateTime(year, month, endday);
+            Creator.AddVacation(employeeid, startdate, enddate);
+
         }
         public void AddVacation()
         {
@@ -121,6 +130,14 @@ namespace Scheduler
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose vacation do you want to schedule?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose vacation do you want to schedule?");
             }
+            int employeeid = Reader.GetEmployeeId(firstname, lastname);
+            int year = Lawyer.GetYear("What year is this off days be taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this off days be taking place?");
+            int startday = Lawyer.GetDay("What day of the month will this off days start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will this off days end?", month, year);
+            DateTime startdate = new DateTime(year, month, startday);
+            DateTime enddate = new DateTime(year, month, endday);
+            Creator.AddOffDay(employeeid, startdate, enddate);
         }
         public void AddSickDay()
         {
@@ -132,6 +149,14 @@ namespace Scheduler
                 firstname = Lawyer.GetResponse("What is the first name of the employee whose sick days you want to set?");
                 lastname = Lawyer.GetResponse("What is the last name  of the employee whose sick days you want to set?");
             }
+            int employeeid = Reader.GetEmployeeId(firstname, lastname);
+            int year = Lawyer.GetYear("What year is this sick/recovery be taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this sick/recovery be taking place?");
+            int startday = Lawyer.GetDay("What day of the month will this sick/recovery start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will this sick/recovery end?", month, year);
+            DateTime startdate = new DateTime(year, month, startday);
+            DateTime enddate = new DateTime(year, month, endday);
+            Creator.AddSickDay(employeeid, startdate, enddate);
         }
 
         private string GetDay(int day)
