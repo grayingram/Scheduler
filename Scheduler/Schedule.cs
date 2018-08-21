@@ -192,14 +192,22 @@ namespace Scheduler
         }
         private Employee GetEmployee(Reader reader)
         {
+            //string firstname = Lawyer.GetResponse("What is the first name of this employee?");
+            //string lastname = Lawyer.GetResponse("What is the last name of this employee?");
+            //while (!(Reader.DoesEmployeeExist(firstname, lastname)))
+            //{
+            //    Console.WriteLine("Sorry but that employee does not exist, try again");
+            //    firstname = Lawyer.GetResponse("What is the first name of this employee?");
+            //    lastname = Lawyer.GetResponse("What is the last name of this employee?");
+            //}
             foreach (var employee in reader.Employees)
             {
-                Console.Write("First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " ");
+                Console.Write("First Name: " + employee.FirstName + " \nLast Name: " + employee.LastName + " ");
                 if((Lawyer.GetYesNo("Is this the employee you want to use?")))
                 {
                     return employee;
                 }
-                               
+                Console.Clear();              
             }
             Employee bob = new Employee("Bob", "Bob");
             return bob;
