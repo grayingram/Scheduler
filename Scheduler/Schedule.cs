@@ -7,8 +7,8 @@ namespace Scheduler
     class Schedule
     {
         public List<Employee> Employees { get; set; } = new List<Employee>();
-        public int NumberOfEmployees { get; private set; }//debateable/deletable
-        public int DaysWorkable { get; private set; }
+        public static int NumberOfEmployees { get; private set; }//debateable/deletable
+        public static int DaysWorkable { get; private set; }
         public Lawyer Lawyer { get; set; } = new Lawyer();
         private Creator Creator { get; set; } = new Creator();
         private Reader Reader { get; set; } = new Reader();
@@ -34,6 +34,7 @@ namespace Scheduler
                 if(Lawyer.GetYesNo("Are you sure you wnat to add " + firstname + " " + lastname + " to the employees"))
                 {
                     Creator.AddEmployee(firstname, lastname, vacations);
+                    NumberOfEmployees++;
                 }
             } while (Lawyer.GetYesNo("Do you want to add another employee?"));
         }
@@ -97,7 +98,11 @@ namespace Scheduler
                     }
                 }
             }
-            Creator.AddWorkableDays(employeeid, mon, tues, wed, thurs, fri);
+            if(Lawyer.GetYesNo("Are you sure you want to set the days for " + firstname + " " + lastname + " and their workable late days to be Monday: " + mon + " Tuesday:" + tues + " Wednesday: " + wed + " Thursday: " + thurs + " Friday: " + fri))
+            {
+                Creator.AddWorkableDays(employeeid, mon, tues, wed, thurs, fri);
+            }
+            
             
         }
         public void AddOffDay()
