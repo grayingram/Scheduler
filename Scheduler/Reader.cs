@@ -54,6 +54,25 @@ namespace Scheduler
                 return employeeid;
             }
         }
+        public int GetEmployeeId(Employee employee)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT EmployeeID FROM employees as e WHERE e.FirstName = @firstname AND e.LastName = @lastname;";
+                cmd.Parameters.AddWithValue("firstname", employee.FirstName);
+                cmd.Parameters.AddWithValue("lastname", employee.LastName);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeeid = int.Parse(dr[0].ToString());
+                return employeeid;
+            }
+        }
         public int GetNumberOfVacaEmployees(DateTime startDate, DateTime endDate)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);

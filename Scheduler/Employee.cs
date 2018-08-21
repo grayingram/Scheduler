@@ -14,6 +14,16 @@ namespace Scheduler
             FirstName = firstname;
             LastName = lastname;
         }
+        public Employee()
+        {
+            FirstName = "";
+            LastName = "";
+        }
+
+        public string PrintName()
+        {
+            return FirstName + " " + LastName;
+        }
         //public List<string> DaysWorkable { get; set; } = new List<string>();
         //public bool IsFullTime { get; set; }
     }
