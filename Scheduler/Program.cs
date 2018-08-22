@@ -18,6 +18,14 @@ namespace Scheduler
                 {
                     schedule.SetWorkableDays();
                 }
+                else if(lawyer.GetYesNo("Do you want to set workable late days for an employee"))
+                {
+                    schedule.SetWorkableLateDays();
+                }
+                else if(lawyer.GetYesNo("Do you want to set a vacation days for an employee"))
+                {
+                    schedule.AddVacation();
+                }
                 else
                 {
                     Console.WriteLine("Okay then");

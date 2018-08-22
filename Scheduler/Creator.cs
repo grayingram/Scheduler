@@ -61,6 +61,25 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+        public void AddWorkableLateDays(int employeeid, int mon, int tues, int wed, int thurs, int fri)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO workablelatedays (EmployeeId, Monday, Tuesday, Wednesday, Thursday, Friday) VALUES(@employeeid, @mon, @tues, @wed, @thurs, @fri);";
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
+                cmd.Parameters.AddWithValue("mon", mon);
+                cmd.Parameters.AddWithValue("tues", tues);
+                cmd.Parameters.AddWithValue("wed", wed);
+                cmd.Parameters.AddWithValue("thurs", thurs);
+                cmd.Parameters.AddWithValue("fri", fri);
+                cmd.ExecuteNonQuery();
+            }
+        }
         public void AddSickDay(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);

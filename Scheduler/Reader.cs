@@ -272,5 +272,31 @@ namespace Scheduler
                 }
             }
         }
+        public bool DoesWorkableLatebyEIDExist(int employeeid)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(w.employeeId) AS result FROM workablelatedays w WHERE employeeID = @employeeId;";
+                cmd.Parameters.AddWithValue("employeeId", employeeid);
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int count = int.Parse(dr[0].ToString());
+                if (count == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
