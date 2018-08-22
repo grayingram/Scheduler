@@ -73,6 +73,24 @@ namespace Scheduler
                 return employeeid;
             }
         }
+        public int GetNumberOfVacations(int employeeid)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Vacations FROM employees as e WHERE employeeid = @employeeid";
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
+                
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int vacations = int.Parse(dr[0].ToString());
+                return vacations;
+            }
+        }
         public int GetNumberOfVacaEmployees(DateTime startDate, DateTime endDate)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);

@@ -11,6 +11,7 @@ namespace Scheduler
         private Lawyer Lawyer { get; set; } = new Lawyer();
         private Creator Creator { get; set; } = new Creator();
         private Reader Reader { get; set; } = new Reader();
+        private Updater Updater { get; set; } = new Updater();
 
         public Schedule()
         {            
@@ -147,6 +148,8 @@ namespace Scheduler
             if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddOffDay(employeeid, startdate, enddate);
+                int numofvacationdays = DateTime.Compare(startdate, enddate);
+                Updater.UpdateVactionsByEmployeeID(employeeid, numofvacationdays);
             }
             Console.Clear();
         }
