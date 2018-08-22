@@ -50,6 +50,13 @@ namespace Scheduler
             {
                 Employee employee = GetEmployee(Reader);
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
+                while (Reader.DoesWorkablebyEIDExist(employeeid))
+                {
+                    Console.WriteLine("Sorry but that employee's workable days have been set, try a different employee.");
+                    Console.Clear();
+                    Employee employee2 = GetEmployee(Reader);
+                    employeeid = Reader.GetEmployeeId(employee2.FirstName, employee2.LastName);
+                }
                 int mon = 0;
                 int tues = 0;
                 int wed = 0;
@@ -195,23 +202,32 @@ namespace Scheduler
         }
         private Employee GetEmployee(Reader reader)
         {
-            //string firstname = Lawyer.GetResponse("What is the first name of this employee?");
-            //string lastname = Lawyer.GetResponse("What is the last name of this employee?");
-            //while (!(Reader.DoesEmployeeExist(firstname, lastname)))
-            //{
-            //    Console.WriteLine("Sorry but that employee does not exist, try again");
-            //    firstname = Lawyer.GetResponse("What is the first name of this employee?");
-            //    lastname = Lawyer.GetResponse("What is the last name of this employee?");
-            //}
+            if (Lawyer.GetYesNo("Do you know the last name of the employee?"))
+            {
+                string lastname = Lawyer.GetResponse("What is the name of the employee?");
+                while (!(Reader.DoesEmployeeExist(lastname)))
+                {
+                    Console.WriteLine("Sorry no employee under that last name exist.");
+                    lastname = Lawyer.GetResponse("What is the name of the employee?");
+                }
+                foreach (var employee in reader.Employees)
+                {
+                    if (employee.LastName == lastname)
+                    {
+                        return employee;
+                    }
+                }
+            }
             foreach (var employee in reader.Employees)
             {
                 Console.Write("First Name: " + employee.FirstName + " \nLast Name: " + employee.LastName + " ");
-                if((Lawyer.GetYesNo("Is this the employee you want to use?")))
+                if ((Lawyer.GetYesNo("Is this the employee you want to use?")))
                 {
-                    return employee;
+                   return employee;
                 }
-                Console.Clear();              
+                Console.Clear();
             }
+            
             Employee bob = new Employee("Bob", "Bob");
             return bob;
         }

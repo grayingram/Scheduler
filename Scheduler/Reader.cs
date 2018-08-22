@@ -157,6 +157,31 @@ namespace Scheduler
                 }
             }
         }
+        public bool DoesEmployeeExist(string lastname)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(c.firstname) AS result FROM employees c WHERE lastname = @lastname;";
+                cmd.Parameters.AddWithValue("lastname", lastname);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int count = int.Parse(dr[0].ToString());
+                if (count >= 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         public bool DoesEmployeebyIdExist(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
