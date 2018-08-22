@@ -157,13 +157,13 @@ namespace Scheduler
                 conn.Open();
                 int count = 0;
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(employeeid) FROM employees as e WHERE e.LastName = @lastname;";
+                cmd.CommandText = "SELECT Count(EmployeeID) as EmployeeID FROM employees as e WHERE e.LastName = @lastname;";
                 cmd.Parameters.AddWithValue("lastname", lastname);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                   count = (int.Parse(dr["ProductID"].ToString()));
+                   count = (int.Parse(dr["EmployeeID"].ToString()));
                 }
                 return count;
             }

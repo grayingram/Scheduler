@@ -7,7 +7,7 @@ namespace Scheduler
     class Lawyer
     {
         
-            public string GetResponse(string question)
+        public string GetResponse(string question)
             {
                 Console.WriteLine(question);
                 string response = Console.ReadLine();
@@ -16,24 +16,23 @@ namespace Scheduler
                     Console.WriteLine("Please enter an actual value for the question\n" + question);
                     response = Console.ReadLine();
                 }
-
+                Console.Clear();
                 return response;
             }
-            public int GetInt(string question)
+        public int GetInt(string question)
             {
                 string response = GetResponse(question);
                 int userInput;
 
                 while (int.TryParse(response, out userInput) == false)
                 {
-                    Console.WriteLine("Unable to determine number. ");
-                    response = GetResponse(question);
+                    response = GetResponse("Unable to determine number. \n" + question);
                 }
                 userInput = NotNeg(userInput, response, question);
-
+                Console.Clear();
                 return userInput;
             }
-            public int NotNeg(int num, string answer, string query)
+        public int NotNeg(int num, string answer, string query)
             {
 
                 int userInput = 0;
@@ -44,9 +43,10 @@ namespace Scheduler
                     num = GetInt(query);
                 }
                 userInput = num;
+                Console.Clear();
                 return userInput;
             }
-            public int NotNeg(int num, string query)
+        public int NotNeg(int num, string query)
             {
                 int userInput = 0;
 
@@ -58,7 +58,7 @@ namespace Scheduler
                 userInput = num;
                 return userInput;
             }
-            public decimal NotNeg(decimal num, string answer, string query)
+        public decimal NotNeg(decimal num, string answer, string query)
             {
                 decimal userInput = 0;
 
@@ -70,7 +70,7 @@ namespace Scheduler
                 userInput = Math.Round(num, 2);
                 return userInput;
             }
-            public decimal GetDecimal(string question)
+        public decimal GetDecimal(string question)
             {
                 string response = GetResponse(question);
                 decimal userInput = 0;
@@ -84,7 +84,7 @@ namespace Scheduler
 
                 return userInput;
             }
-            public bool GetYesNo(string question)
+        public bool GetYesNo(string question)
             {
                 string response = GetResponse(question);
                 response = response.ToUpper();
@@ -105,14 +105,14 @@ namespace Scheduler
                 }
                 return false;
             }
-            public IEnumerable<string> GetList(string question, int limit)
+        public IEnumerable<string> GetList(string question, int limit)
             {
                 string response = GetResponse(question);
                 response = response.ToLower();
                 List<string> bob = new List<string>();
                 return bob;
             }
-            public int GetMonth(string question)
+        public int GetMonth(string question)
             {
                 int userInput = GetInt(question);
                 while (!(userInput >= 1 && userInput <= 12))
@@ -121,11 +121,12 @@ namespace Scheduler
                     userInput = GetInt(question);
                 }
                 userInput = NotNeg(userInput, question);
+                Console.Clear();
                 return userInput;
 
 
             }
-            public int GetDay(string question, int month, int year)
+        public int GetDay(string question, int month, int year)
             {
                 int userInput = GetInt(question);
                 bool fact = false;
@@ -169,9 +170,10 @@ namespace Scheduler
                         }
                     }
                 }
+                Console.Clear();
                 return userInput;
             }
-            public int GetYear(string question)
+        public int GetYear(string question)
         {
             int userInput = GetInt(question);
             DateTime current = DateTime.Now;
@@ -180,6 +182,7 @@ namespace Scheduler
                 Console.WriteLine("The year is not a valid year, try again.");
                 userInput = GetInt(question);
             }
+            Console.Clear();
             return userInput;
         }
     }

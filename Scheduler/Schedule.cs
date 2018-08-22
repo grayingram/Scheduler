@@ -344,7 +344,7 @@ namespace Scheduler
         {
             if (Lawyer.GetYesNo("Do you know the last name of the employee?"))
             {
-                string lastname = Lawyer.GetResponse("What is the name of the employee?");
+                string lastname = Lawyer.GetResponse("What is the last name of the employee?");
                 while (!(Reader.DoesEmployeeExist(lastname)))
                 {
                     lastname = Lawyer.GetResponse("Sorry no employee under that last name exist.\nWhat is the name of the employee?");
@@ -355,7 +355,7 @@ namespace Scheduler
                     {
                         return employee;
                     }
-                    else
+                    else if(employee.LastName == lastname)
                     {
                         string firstletter = Lawyer.GetResponse("Sorry there are two or more employees with that last name.\nWhat is the first letter of the employees name");
                         if(employee.FirstName[0].ToString() == firstletter)
