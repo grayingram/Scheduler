@@ -6,7 +6,6 @@ namespace Scheduler
 {
     class Schedule
     {
-        public List<Employee> Employees { get; set; } = new List<Employee>();
         public static int NumberOfEmployees { get; private set; }//debateable/deletable
         public static int DaysWorkable { get; private set; }
         private Lawyer Lawyer { get; set; } = new Lawyer();
@@ -207,14 +206,26 @@ namespace Scheduler
                 string lastname = Lawyer.GetResponse("What is the name of the employee?");
                 while (!(Reader.DoesEmployeeExist(lastname)))
                 {
-                    Console.WriteLine("Sorry no employee under that last name exist.");
-                    lastname = Lawyer.GetResponse("What is the name of the employee?");
+                    lastname = Lawyer.GetResponse("Sorry no employee under that last name exist.\nWhat is the name of the employee?");
                 }
                 foreach (var employee in reader.Employees)
                 {
-                    if (employee.LastName == lastname)
+                    if (employee.LastName == lastname && Reader.GetNumberOfEmployeeWSameName(lastname) == 1)
                     {
                         return employee;
+                    }
+                    else
+                    {
+                        string firstletter = Lawyer.GetResponse("Sorry there are two or more employees with that last name.\nWhat is the first letter of the employees name");
+                        if(employee.FirstName[0].ToString() == firstletter)
+                        {
+                            return employee;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Guess you are looking for the other");
+                            continue;
+                        }
                     }
                 }
             }

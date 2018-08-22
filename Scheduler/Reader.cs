@@ -130,6 +130,26 @@ namespace Scheduler
                 return employeecount;
             }
         }
+        public int GetNumberOfEmployeeWSameName(string lastname)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            //int product = GetCategoryID(categoryId);
+            using (conn)
+            {
+                conn.Open();
+                int count = 0;
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(employeeid) FROM employees as e WHERE e.LastName = @lastname;";
+                cmd.Parameters.AddWithValue("lastname", lastname);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                   count = (int.Parse(dr["ProductID"].ToString()));
+                }
+                return count;
+            }
+        }
 
         public bool DoesEmployeeExist(string firstname, string lastname)
         {
