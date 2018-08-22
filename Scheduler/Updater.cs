@@ -24,5 +24,22 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+        public void UpdateWorkableDays(int employeeid, int mon, int tues, int wed, int thurs, int fri)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "Update workabledays SET Monday = @mon, Tuesday = @tues, Wednesday =@wed, Thursday= @thurs, Friday = @fri WHERE employeeid=@employeeid";
+                cmd.Parameters.AddWithValue("mon", mon);
+                cmd.Parameters.AddWithValue("tues", tues);
+                cmd.Parameters.AddWithValue("wed", wed);
+                cmd.Parameters.AddWithValue("thurs", thurs);
+                cmd.Parameters.AddWithValue("fri", fri);
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

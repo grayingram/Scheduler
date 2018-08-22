@@ -18,6 +18,10 @@ namespace Scheduler
                 {
                     schedule.SetWorkableDays();
                 }
+                else if(lawyer.GetYesNo("Do you want to update workable days for an employee?"))
+                {
+                    schedule.UpdateWorkableDays();
+                }
                 else if(lawyer.GetYesNo("Do you want to set workable late days for an employee"))
                 {
                     schedule.SetWorkableLateDays();

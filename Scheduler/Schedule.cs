@@ -242,6 +242,72 @@ namespace Scheduler
             Console.Clear();
         }
 
+        public void UpdateWorkableDays()
+        {
+            do
+            {
+                Employee employee = GetEmployee(Reader);
+                int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
+                int mon = 0;
+                int tues = 0;
+                int wed = 0;
+                int thurs = 0;
+                int fri = 0;
+                bool monFact = false, tuesFact = false, wedFact = false, thursFact = false, friFact = false;
+                for (int i = 0; i < 5; i++)
+                {
+                    string day = GetDay(i + 1);
+                    if (i == 0)
+                    {
+                        if (Lawyer.GetYesNo("Is the employee " + employee.FirstName + " " + employee.LastName + " able to work " + day))
+                        {
+                            mon = 1;
+                            monFact = true;
+                        }
+                    }
+                    else if (i == 1)
+                    {
+                        if (Lawyer.GetYesNo("Is the employee " + employee.FirstName + " " + employee.LastName + " able to work " + day))
+                        {
+                            tues = 1;
+                            tuesFact = true;
+                        }
+
+                    }
+                    else if (i == 2)
+                    {
+                        if (Lawyer.GetYesNo("Is the employee " + employee.FirstName + " " + employee.LastName + " able to work " + day))
+                        {
+                            wed = 1;
+                            wedFact = true;
+                        }
+                    }
+                    else if (i == 3)
+                    {
+                        if (Lawyer.GetYesNo("Is the employee " + employee.FirstName + " " + employee.LastName + " able to work " + day))
+                        {
+                            thurs = 1;
+                            thursFact = true;
+                        }
+                    }
+                    else if (i == 4)
+                    {
+                        if (Lawyer.GetYesNo("Is the employee " + employee.FirstName + " " + employee.LastName + " able to work " + day))
+                        {
+                            fri = 1;
+                            friFact = true;
+                        }
+                    }
+                }
+                if (Lawyer.GetYesNo("Are you sure you want to set the days for " + employee.FirstName + " " + employee.LastName + " and their workable late days to be Monday: " + monFact + " Tuesday:" + tuesFact + " Wednesday: " + wedFact + " Thursday: " + thursFact + " Friday: " + friFact))
+                {
+                    Updater.UpdateWorkableDays(employeeid, mon, tues, wed, thurs, fri);
+                    Console.Clear();
+                }
+                Console.Clear();
+            } while (Lawyer.GetYesNo("Do you want to update the workable days for another employee"));
+        }
+
         private string GetDay(int day)
         {
             if(day == 1)
