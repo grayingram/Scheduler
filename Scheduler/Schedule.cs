@@ -24,7 +24,7 @@ namespace Scheduler
             {
                 if (Lawyer.GetYesNo("Do you want to see all existing employees?"))
                 {
-                    ReadEmployees(Reader);
+                    ReadEmployees();
                 }
                 string firstname = Lawyer.GetResponse("What is the first name of this employee?");
                 string lastname = Lawyer.GetResponse("What is the last name of this employee?");
@@ -48,13 +48,13 @@ namespace Scheduler
         {
             do
             {
-                Employee employee = GetEmployee(Reader);
+                Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
                 while (Reader.DoesWorkablebyEIDExist(employeeid))
                 {
                     Console.WriteLine("Sorry but that employee's workable days have been set, try a different employee.");
                     Console.Clear();
-                    Employee employee2 = GetEmployee(Reader);
+                    Employee employee2 = GetEmployee();
                     employeeid = Reader.GetEmployeeId(employee2.FirstName, employee2.LastName);
                 }
                 int mon = 0;
@@ -122,13 +122,13 @@ namespace Scheduler
         {
             do
             {
-                Employee employee = GetEmployee(Reader);
+                Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
                 while (Reader.DoesWorkableLatebyEIDExist(employeeid))
                 {
                     Console.WriteLine("Sorry but that employee's workable late days have been set, try a different employee.");
                     Console.Clear();
-                    Employee employee2 = GetEmployee(Reader);
+                    Employee employee2 = GetEmployee();
                     employeeid = Reader.GetEmployeeId(employee2.FirstName, employee2.LastName);
                 }
                 int mon = 0;
@@ -192,7 +192,7 @@ namespace Scheduler
         }
         public void AddOffDay()
         {
-            Employee employee = GetEmployee(Reader);
+            Employee employee = GetEmployee();
             int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
             int year = Lawyer.GetYear("What year is this vacation taking place?");
             int month = Lawyer.GetMonth("What numerical month is this vacation taking place?");
@@ -209,7 +209,7 @@ namespace Scheduler
         }
         public void AddVacation()
         {
-            Employee employee = GetEmployee(Reader);
+            Employee employee = GetEmployee();
             int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
             int year = Lawyer.GetYear("What year is this off days be taking place?");
             int month = Lawyer.GetMonth("What numerical month is this off days be taking place?");
@@ -227,7 +227,7 @@ namespace Scheduler
         }
         public void AddSickDay()
         {
-            Employee employee = GetEmployee(Reader);
+            Employee employee = GetEmployee();
             int employeeid = Reader.GetEmployeeId(employee);
             int year = Lawyer.GetYear("What year is this sick/recovery be taking place?");
             int month = Lawyer.GetMonth("What numerical month is this sick/recovery be taking place?");
@@ -246,7 +246,7 @@ namespace Scheduler
         {
             do
             {
-                Employee employee = GetEmployee(Reader);
+                Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
                 int mon = 0;
                 int tues = 0;
@@ -328,9 +328,9 @@ namespace Scheduler
             }
             return "Friday";
         }
-        private void ReadEmployees(Reader reader)
+        private void ReadEmployees()
         {
-            foreach (var employee in reader.Employees)
+            foreach (var employee in Reader.Employees)
             {
                 Console.Write("First Name: " + employee.FirstName + " Last Name: " + employee.LastName + " ");
                 if (!(Lawyer.GetYesNo("Do you want see another employee?")))
@@ -340,7 +340,7 @@ namespace Scheduler
                 Console.Clear();
             }
         }
-        private Employee GetEmployee(Reader reader)
+        private Employee GetEmployee()
         {
             if (Lawyer.GetYesNo("Do you know the last name of the employee?"))
             {
@@ -349,7 +349,7 @@ namespace Scheduler
                 {
                     lastname = Lawyer.GetResponse("Sorry no employee under that last name exist.\nWhat is the name of the employee?");
                 }
-                foreach (var employee in reader.Employees)
+                foreach (var employee in Reader.Employees)
                 {
                     if (employee.LastName == lastname && Reader.GetNumberOfEmployeeWSameName(lastname) == 1)
                     {
@@ -370,7 +370,7 @@ namespace Scheduler
                     }
                 }
             }
-            foreach (var employee in reader.Employees)
+            foreach (var employee in Reader.Employees)
             {
                 Console.Write("First Name: " + employee.FirstName + " \nLast Name: " + employee.LastName + " ");
                 if ((Lawyer.GetYesNo("Is this the employee you want to use?")))
