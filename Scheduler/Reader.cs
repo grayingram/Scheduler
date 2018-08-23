@@ -390,6 +390,23 @@ namespace Scheduler
             }
             return new List<Employee>();
         }
+        public int GetNumberOfEmployees()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID)  FROM employees;";
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
 
 
         public bool DoesEmployeeExist(string firstname, string lastname)

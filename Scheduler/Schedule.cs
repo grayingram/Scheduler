@@ -44,6 +44,10 @@ namespace Scheduler
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another employee?"));
         }
+        public int GetEmployees()
+        {
+            return Reader.GetNumberOfEmployees();
+        }
         public void SetWorkableDays()
         {
             do
@@ -199,12 +203,19 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
-            bool fact = false;
+            bool fact = true;
             do
             {
+                var day = date.DayOfWeek.ToString();
+                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                if (Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                {
+                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                    fact = false;
+                }
                 int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 //if(workingemployees - )
-                var day = date.DayOfWeek.ToString();
                 Console.WriteLine(day + " current day");
                 date = date.AddDays(1.0);
             } while (!(date > enddate)&& fact);
@@ -226,17 +237,24 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
+            bool fact = true;
             do
             {
                 var day = date.DayOfWeek.ToString();
-                //int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                if(Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                {
+                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                    fact = false;
+                }
                 //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
                 //int workableemployees = Reader.
                 //if(notworkingemployees - workableemployees)
                 Console.WriteLine(day + " current day");
                 date = date = date.AddDays(1.00);
                 
-            } while (!(date > enddate ));
+            } while ((!(date > enddate )) && fact);
             if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddOffDay(employeeid, startdate, enddate);
@@ -256,10 +274,18 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
+            bool fact = true;
             do
             {
-                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
+                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                if (Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                {
+                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                    fact = false;
+                }
+                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 Console.WriteLine(day + " current day");
                 date.AddDays(1.0);
             } while (!(date > enddate));
