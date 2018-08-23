@@ -230,8 +230,11 @@ namespace Scheduler
             DateTime date = startdate;
             do
             {
-                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
+                //int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
+                //int workableemployees = Reader.
+                //if(notworkingemployees - workableemployees)
                 Console.WriteLine(day + " current day");
                 date = date = date.AddDays(1.00);
                 

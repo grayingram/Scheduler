@@ -92,25 +92,92 @@ namespace Scheduler
             }
         }
 
-        //public int GetNumberOfWorkableEmployees(DateTime date)
-        //{
-        //    MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+        private int GetNumOfWorkableEmployeesMon()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
-        //    using (conn)
-        //    {
-        //        conn.Open();
-        //        var day = date.DayOfWeek.ToString();
-        //        MySqlCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE ;";
-        //        cmd.Parameters.AddWithValue("date", date);
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE Monday = 1;";
+                
 
-        //        MySqlDataReader dr = cmd.ExecuteReader();
-        //        dr.Read();
-        //        int employeecount = int.Parse(dr[0].ToString());
-        //        return employeecount;
-        //    }
-        //}
-        
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+        private int GetNumOfWorkableEmployeesTues()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE Tuesday = 1;";
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+        private int GetNumOfWorkableEmployeesWed()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE Wednesday = 1;";
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+        private int GetNumOfWorkableEmployeesThurs()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE Thursday = 1;";
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+        private int GetNumOfWorkableEmployeesFri()
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE Friday = 1;";
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+
         public int GetNumberOfVacaEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -185,10 +252,30 @@ namespace Scheduler
                 return count;
             }
         }
-        //public int GetNumberOfWorkableEmployees()
-        //{
-
-        //}
+        public int GetNumberOfWorkableEmployees(DateTime date)
+        {
+            if(date.DayOfWeek.ToString() == "Monday")
+            {
+                return GetNumOfWorkableEmployeesMon();
+            }
+            else if (date.DayOfWeek.ToString() == "Tuesday")
+            {
+                return GetNumOfWorkableEmployeesTues();
+            }
+            else if (date.DayOfWeek.ToString() == "Wednesday")
+            {
+                return GetNumOfWorkableEmployeesWed();
+            }
+            else if (date.DayOfWeek.ToString() == "Thursday")
+            {
+                return GetNumOfWorkableEmployeesThurs();
+            }
+            else if (date.DayOfWeek.ToString() == "Friday")
+            {
+                return GetNumOfWorkableEmployeesFri();
+            }
+            return 0;
+        }
 
 
         public bool DoesEmployeeExist(string firstname, string lastname)
