@@ -91,18 +91,18 @@ namespace Scheduler
                 return vacations;
             }
         }
-        public int GetNumberOfVacaEmployees(DateTime startDate, DateTime endDate)
+
+        public int GetNumberOfWorkableEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
             using (conn)
             {
                 conn.Open();
-
+                var day = date.DayOfWeek.ToString();
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
-                cmd.Parameters.AddWithValue("startDate", startDate);
-                cmd.Parameters.AddWithValue("endDate", endDate);
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE ;";
+                cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
@@ -110,7 +110,8 @@ namespace Scheduler
                 return employeecount;
             }
         }
-        public int GetNumberOfOffEmployees(DateTime startDate, DateTime endDate)
+        
+        public int GetNumberOfVacaEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
@@ -119,9 +120,26 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
-                cmd.Parameters.AddWithValue("startDate", startDate);
-                cmd.Parameters.AddWithValue("endDate", endDate);
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.Parameters.AddWithValue("date", date);
+                
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int employeecount = int.Parse(dr[0].ToString());
+                return employeecount;
+            }
+        }
+        public int GetNumberOfOffEmployees(DateTime date)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
@@ -129,7 +147,7 @@ namespace Scheduler
                 return employeecount;
             }
         }
-        public int GetNumberOfSickEmployees(DateTime startDate, DateTime endDate)
+        public int GetNumberOfSickEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
@@ -138,9 +156,8 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as v WHERE v.Startdate = @startDate Or v.EndDate = @endDate;";
-                cmd.Parameters.AddWithValue("startDate", startDate);
-                cmd.Parameters.AddWithValue("endDate", endDate);
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as o WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
@@ -168,6 +185,7 @@ namespace Scheduler
                 return count;
             }
         }
+
 
         public bool DoesEmployeeExist(string firstname, string lastname)
         {

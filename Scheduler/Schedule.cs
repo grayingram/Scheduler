@@ -200,6 +200,15 @@ namespace Scheduler
             int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
+            DateTime date = startdate;
+            do
+            {
+                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                var day = date.DayOfWeek.ToString();
+                Console.WriteLine(date + " current day");
+                date.AddDays(1.0);
+                Console.WriteLine(date + " Next day");
+            } while (date > enddate);
             if(Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddVacation(employeeid, startdate, enddate);
@@ -217,6 +226,15 @@ namespace Scheduler
             int endday = Lawyer.GetDay("What day of the month will this off days end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
+            DateTime date = startdate;
+            do
+            {
+                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                var day = date.DayOfWeek.ToString();
+                Console.WriteLine(date + " current day");
+                date.AddDays(1.0);
+                Console.WriteLine(date + " Next day");
+            } while (date > enddate);
             if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddOffDay(employeeid, startdate, enddate);
@@ -235,6 +253,15 @@ namespace Scheduler
             int endday = Lawyer.GetDay("What day of the month will this sick/recovery end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
+            DateTime date = startdate;
+            do
+            {
+                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                var day = date.DayOfWeek.ToString();
+                Console.WriteLine(date + " current day");
+                date.AddDays(1.0);
+                Console.WriteLine(date + " Next day");
+            } while (date > enddate);
             if (Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddSickDay(employeeid, startdate, enddate);
