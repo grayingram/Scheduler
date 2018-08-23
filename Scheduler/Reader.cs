@@ -92,24 +92,24 @@ namespace Scheduler
             }
         }
 
-        public int GetNumberOfWorkableEmployees(DateTime date)
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+        //public int GetNumberOfWorkableEmployees(DateTime date)
+        //{
+        //    MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
-            using (conn)
-            {
-                conn.Open();
-                var day = date.DayOfWeek.ToString();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE ;";
-                cmd.Parameters.AddWithValue("date", date);
+        //    using (conn)
+        //    {
+        //        conn.Open();
+        //        var day = date.DayOfWeek.ToString();
+        //        MySqlCommand cmd = conn.CreateCommand();
+        //        cmd.CommandText = "SELECT Count(EmployeeID) FROM workabledays as wd WHERE ;";
+        //        cmd.Parameters.AddWithValue("date", date);
 
-                MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                int employeecount = int.Parse(dr[0].ToString());
-                return employeecount;
-            }
-        }
+        //        MySqlDataReader dr = cmd.ExecuteReader();
+        //        dr.Read();
+        //        int employeecount = int.Parse(dr[0].ToString());
+        //        return employeecount;
+        //    }
+        //}
         
         public int GetNumberOfVacaEmployees(DateTime date)
         {

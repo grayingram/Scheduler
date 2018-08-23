@@ -206,9 +206,9 @@ namespace Scheduler
                 //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
                 Console.WriteLine(date + " current day");
-                date.AddDays(1.0);
+                date = date.AddDays(1.0);
                 Console.WriteLine(date + " Next day");
-            } while (date > enddate);
+            } while (!(date > enddate));
             if(Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddVacation(employeeid, startdate, enddate);
@@ -232,9 +232,9 @@ namespace Scheduler
                 //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
                 Console.WriteLine(date + " current day");
-                date.AddDays(1.0);
+                date = date = date.AddDays(1.00);
                 Console.WriteLine(date + " Next day");
-            } while (date > enddate);
+            } while (!(date > enddate ));
             if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddOffDay(employeeid, startdate, enddate);
@@ -261,7 +261,7 @@ namespace Scheduler
                 Console.WriteLine(date + " current day");
                 date.AddDays(1.0);
                 Console.WriteLine(date + " Next day");
-            } while (date > enddate);
+            } while (!(date > enddate));
             if (Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddSickDay(employeeid, startdate, enddate);
