@@ -53,8 +53,8 @@ namespace Scheduler
                 while (Reader.DoesWorkablebyEIDExist(employeeid))
                 {
                     Console.WriteLine("Sorry but that employee's workable days have been set, try a different employee.");
-                    Employee employee2 = GetEmployee();
-                    employeeid = Reader.GetEmployeeId(employee2.FirstName, employee2.LastName);
+                    employee = GetEmployee();
+                    employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
                 }
                 int mon = 0;
                 int tues = 0;
@@ -126,8 +126,8 @@ namespace Scheduler
                 while (Reader.DoesWorkableLatebyEIDExist(employeeid))
                 {
                     Console.WriteLine("Sorry but that employee's workable late days have been set, try a different employee.");
-                    Employee employee2 = GetEmployee();
-                    employeeid = Reader.GetEmployeeId(employee2.FirstName, employee2.LastName);
+                    employee = GetEmployee();
+                    employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
                 }
                 int mon = 0;
                 int tues = 0;
