@@ -185,6 +185,10 @@ namespace Scheduler
                 return count;
             }
         }
+        //public int GetNumberOfWorkableEmployees()
+        //{
+
+        //}
 
 
         public bool DoesEmployeeExist(string firstname, string lastname)

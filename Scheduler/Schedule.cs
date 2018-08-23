@@ -201,14 +201,15 @@ namespace Scheduler
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
+            bool fact = false;
             do
             {
-                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                //if(workingemployees - )
                 var day = date.DayOfWeek.ToString();
-                Console.WriteLine(date + " current day");
+                Console.WriteLine(day + " current day");
                 date = date.AddDays(1.0);
-                Console.WriteLine(date + " Next day");
-            } while (!(date > enddate));
+            } while (!(date > enddate)&& fact);
             if(Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
                 Creator.AddVacation(employeeid, startdate, enddate);
