@@ -194,10 +194,10 @@ namespace Scheduler
         {
             Employee employee = GetEmployee();
             int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-            int year = Lawyer.GetYear("What year is this vacation taking place?");
-            int month = Lawyer.GetMonth("What numerical month is this vacation taking place?");
-            int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
-            int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
+            int year = Lawyer.GetYear("What year is these off days taking place?");
+            int month = Lawyer.GetMonth("What numerical month is these off days taking place?");
+            int startday = Lawyer.GetDay("What day of the month will these off days start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will these off days end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
@@ -221,10 +221,10 @@ namespace Scheduler
         {
             Employee employee = GetEmployee();
             int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-            int year = Lawyer.GetYear("What year is this off days be taking place?");
-            int month = Lawyer.GetMonth("What numerical month is this off days be taking place?");
-            int startday = Lawyer.GetDay("What day of the month will this off days start?", month, year);
-            int endday = Lawyer.GetDay("What day of the month will this off days end?", month, year);
+            int year = Lawyer.GetYear("What year is this vacation be taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this vacation be taking place?");
+            int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
             DateTime enddate = new DateTime(year, month, endday);
             DateTime date = startdate;
@@ -232,9 +232,9 @@ namespace Scheduler
             {
                 //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
-                Console.WriteLine(date + " current day");
+                Console.WriteLine(day + " current day");
                 date = date = date.AddDays(1.00);
-                Console.WriteLine(date + " Next day");
+                
             } while (!(date > enddate ));
             if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
@@ -259,9 +259,8 @@ namespace Scheduler
             {
                 //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 var day = date.DayOfWeek.ToString();
-                Console.WriteLine(date + " current day");
+                Console.WriteLine(day + " current day");
                 date.AddDays(1.0);
-                Console.WriteLine(date + " Next day");
             } while (!(date > enddate));
             if (Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
             {
