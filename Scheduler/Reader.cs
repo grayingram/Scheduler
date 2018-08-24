@@ -290,12 +290,15 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.StartDate <= @date OR v.EndDate >= @date;";
                 cmd.Parameters.AddWithValue("date", date);
                 
                 MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                int employeecount = int.Parse(dr[0].ToString());
+                int employeecount = 0;
+                if (dr.Read())
+                {
+                    employeecount = int.Parse(dr[0].ToString());
+                }
                 return employeecount;
             }
         }
@@ -308,12 +311,16 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE o.StartDay <= @date OR o.EndDay >= @date";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                int employeecount = int.Parse(dr[0].ToString());
+                int employeecount =  0;
+                if(dr.Read())
+                {
+                    employeecount = int.Parse(dr[0].ToString());
+                }
+                
                 return employeecount;
             }
         }
@@ -326,12 +333,15 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as o WHERE @date BETWEEN StartDate AND EndDate;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as s WHERE s.StartDate <= @date OR s.EndDate >= @date;";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                int employeecount = int.Parse(dr[0].ToString());
+                int employeecount = 0;
+                if (dr.Read())
+                {
+                    employeecount = int.Parse(dr[0].ToString());
+                }
                 return employeecount;
             }
         }

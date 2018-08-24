@@ -194,106 +194,115 @@ namespace Scheduler
         }
         public void AddOffDay()
         {
-            Employee employee = GetEmployee();
-            int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-            int year = Lawyer.GetYear("What year is these off days taking place?");
-            int month = Lawyer.GetMonth("What numerical month is these off days taking place?");
-            int startday = Lawyer.GetDay("What day of the month will these off days start?", month, year);
-            int endday = Lawyer.GetDay("What day of the month will these off days end?", month, year);
-            DateTime startdate = new DateTime(year, month, startday);
-            DateTime enddate = new DateTime(year, month, endday);
-            DateTime date = startdate;
-            bool fact = true;
             do
             {
-                var day = date.DayOfWeek.ToString();
-                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                if (Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                Employee employee = GetEmployee();
+                int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
+                int year = Lawyer.GetYear("What year is these off days taking place?");
+                int month = Lawyer.GetMonth("What numerical month is these off days taking place?");
+                int startday = Lawyer.GetDay("What day of the month will these off days start?", month, year);
+                int endday = Lawyer.GetDay("What day of the month will these off days end?", month, year);
+                DateTime startdate = new DateTime(year, month, startday);
+                DateTime enddate = new DateTime(year, month, endday);
+                DateTime date = startdate;
+                bool fact = true;
+                do
                 {
-                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                    fact = false;
+                    var day = date.DayOfWeek.ToString();
+                    int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    {
+                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                        fact = false;
+                    }
+                    int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    //if(workingemployees - )
+                    Console.WriteLine(day + " current day");
+                    date = date.AddDays(1.0);
+                } while (!(date > enddate) && fact);
+                if ((Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                {
+                    Creator.AddOffDay(employeeid, startdate, enddate);
                 }
-                int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                //if(workingemployees - )
-                Console.WriteLine(day + " current day");
-                date = date.AddDays(1.0);
-            } while (!(date > enddate)&& fact);
-            if((Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
-            {
-                Creator.AddVacation(employeeid, startdate, enddate);
-            }
-            Console.Clear();
+                Console.Clear();
+            } while (Lawyer.GetYesNo("Do you want to add another off day for an employee?"));
 
         }
         public void AddVacation()
         {
-            Employee employee = GetEmployee();
-            int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-            int year = Lawyer.GetYear("What year is this vacation be taking place?");
-            int month = Lawyer.GetMonth("What numerical month is this vacation be taking place?");
-            int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
-            int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
-            DateTime startdate = new DateTime(year, month, startday);
-            DateTime enddate = new DateTime(year, month, endday);
-            DateTime date = startdate;
-            bool fact = true;
             do
             {
-                var day = date.DayOfWeek.ToString();
-                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                if(Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                Employee employee = GetEmployee();
+                int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
+                int year = Lawyer.GetYear("What year is this vacation be taking place?");
+                int month = Lawyer.GetMonth("What numerical month is this vacation be taking place?");
+                int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
+                int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
+                DateTime startdate = new DateTime(year, month, startday);
+                DateTime enddate = new DateTime(year, month, endday);
+                DateTime date = startdate;
+                bool fact = true;
+                do
                 {
-                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                    fact = false;
+                    var day = date.DayOfWeek.ToString();
+                    int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    {
+                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                        fact = false;
+                    }
+                    //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
+                    //int workableemployees = Reader.
+                    //if(notworkingemployees - workableemployees)
+                    Console.WriteLine(day + " current day");
+                    date = date = date.AddDays(1.00);
+
+                } while ((!(date > enddate)) && fact);
+                if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                {
+                    Creator.AddVacation(employeeid, startdate, enddate);
+                    int numofvacationdays = DateTime.Compare(startdate, enddate);
+                    Updater.UpdateVactionsByEmployeeID(employeeid, numofvacationdays);
                 }
-                //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
-                //int workableemployees = Reader.
-                //if(notworkingemployees - workableemployees)
-                Console.WriteLine(day + " current day");
-                date = date = date.AddDays(1.00);
-                
-            } while ((!(date > enddate )) && fact);
-            if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
-            {
-                Creator.AddOffDay(employeeid, startdate, enddate);
-                int numofvacationdays = DateTime.Compare(startdate, enddate);
-                Updater.UpdateVactionsByEmployeeID(employeeid, numofvacationdays);
-            }
-            Console.Clear();
+                Console.Clear();
+            } while (Lawyer.GetYesNo("Do you want to add another vaction for another employee?"));
         }
         public void AddSickDay()
         {
-            Employee employee = GetEmployee();
-            int employeeid = Reader.GetEmployeeId(employee);
-            int year = Lawyer.GetYear("What year is this sick/recovery be taking place?");
-            int month = Lawyer.GetMonth("What numerical month is this sick/recovery be taking place?");
-            int startday = Lawyer.GetDay("What day of the month will this sick/recovery start?", month, year);
-            int endday = Lawyer.GetDay("What day of the month will this sick/recovery end?", month, year);
-            DateTime startdate = new DateTime(year, month, startday);
-            DateTime enddate = new DateTime(year, month, endday);
-            DateTime date = startdate;
-            bool fact = true;
             do
             {
-                var day = date.DayOfWeek.ToString();
-                int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                if (Math.Abs(notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                Employee employee = GetEmployee();
+                int employeeid = Reader.GetEmployeeId(employee);
+                int year = Lawyer.GetYear("What year is this sick/recovery be taking place?");
+                int month = Lawyer.GetMonth("What numerical month is this sick/recovery be taking place?");
+                int startday = Lawyer.GetDay("What day of the month will this sick/recovery start?", month, year);
+                int endday = Lawyer.GetDay("What day of the month will this sick/recovery end?", month, year);
+                DateTime startdate = new DateTime(year, month, startday);
+                DateTime enddate = new DateTime(year, month, endday);
+                DateTime date = startdate;
+                bool fact = true;
+                do
                 {
-                    Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                    fact = false;
+                    var day = date.DayOfWeek.ToString();
+                    int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
+                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    {
+                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                        fact = false;
+                    }
+                    //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    Console.WriteLine(day + " current day");
+                    date.AddDays(1.0);
+                } while ((!(date > enddate)) && fact);
+                if ((Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                {
+                    Creator.AddSickDay(employeeid, startdate, enddate);
                 }
-                //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                Console.WriteLine(day + " current day");
-                date.AddDays(1.0);
-            } while ((!(date > enddate)) && fact);
-            if ((Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
-            {
-                Creator.AddSickDay(employeeid, startdate, enddate);
-            }
-            Console.Clear();
+                Console.Clear();
+            } while (Lawyer.GetYesNo("Do you want to add another sick-leave for another employee?"));
         }
 
         public void UpdateWorkableDays()
