@@ -14,7 +14,7 @@ namespace Scheduler
         private Updater Updater { get; set; } = new Updater();
 
         public Schedule()
-        {            
+        {    
             //DaysWorkable = Lawyer.GetInt("How many days of the week is this company open for?");
             //NumberOfEmployees = Lawyer.GetInt("How many employees work in this company?");
         }
@@ -242,6 +242,7 @@ namespace Scheduler
                 DateTime startdate = new DateTime(year, month, startday);
                 DateTime enddate = new DateTime(year, month, endday);
                 DateTime date = startdate;
+                int numofvacationdays = 0;
                 bool fact = true;
                 do
                 {
@@ -256,18 +257,17 @@ namespace Scheduler
                     //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
                     //int workableemployees = Reader.
                     //if(notworkingemployees - workableemployees)
-                    Console.WriteLine(day + " current day");
+                    numofvacationdays++;
                     date = date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
                 if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
                 {
                     Creator.AddVacation(employeeid, startdate, enddate);
-                    int numofvacationdays = DateTime.Compare(startdate, enddate);
-                    Updater.UpdateVactionsByEmployeeID(employeeid, numofvacationdays);
+                    Updater.UpdateVacationsByEmployeeID(employeeid, numofvacationdays);
                 }
                 Console.Clear();
-            } while (Lawyer.GetYesNo("Do you want to add another vaction for another employee?"));
+            } while (Lawyer.GetYesNo("Do you want to add another vacation for another employee?"));
         }
         public void AddSickDay()
         {

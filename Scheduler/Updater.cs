@@ -9,7 +9,7 @@ namespace Scheduler
     {
         Repository Repository = new Repository();
         public Reader Reader = new Reader();
-        public void UpdateVactionsByEmployeeID(int employeeid, int numberofdays)
+        public void UpdateVacationsByEmployeeID(int employeeid, int numberofdays)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
