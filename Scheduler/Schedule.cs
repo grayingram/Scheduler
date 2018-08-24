@@ -249,7 +249,7 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3 || numofvacationdays > Reader.GetNumberOfVacations(employeeid))
                     {
                         Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
                         fact = false;
@@ -264,7 +264,7 @@ namespace Scheduler
                 if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
                 {
                     Creator.AddVacation(employeeid, startdate, enddate);
-                    Updater.UpdateVacationsByEmployeeID(employeeid, numofvacationdays);
+                    Updater.RemoveVacationsByEmployeeID(employeeid, numofvacationdays);
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another vacation for another employee?"));
@@ -369,6 +369,32 @@ namespace Scheduler
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to update the workable days for another employee"));
+        }
+        public void UpdateVacations()
+        {
+            do
+            {
+                Employee employee = GetEmployee();
+                int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
+                if(Lawyer.GetYesNo("Do you want to add vacations?"))
+                {
+                    int days = Lawyer.GetInt("How many days do you want to add?");
+                    if (Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) - days) + "?"))
+                    {
+                        Updater.AddVacationsByEmployeeID(employeeid, days);
+                        Console.Clear();
+                    }
+                }
+                else if(Lawyer.GetYesNo("Do you want to take off vacations?"))
+                {
+                    int days = Lawyer.GetInt("How may days  do you want to subtract?");
+                    if(Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) + days) + "?"))
+                    {
+                        Updater.RemoveVacationsByEmployeeID(employeeid, days);
+                        Console.Clear();
+                    }
+                }
+            } while (Lawyer.GetYesNo("Do you want to update another employees number of vacation days?"));
         }
 
         private string GetDay(int day)
