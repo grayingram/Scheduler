@@ -229,6 +229,10 @@ namespace Scheduler
             } while (Lawyer.GetYesNo("Do you want to add another off day for an employee?"));
 
         }
+              /// <summary>
+              /// validates inforamtion form user before adding vacation
+              /// </summary>
+
         public void AddVacation()
         {
             do
@@ -254,10 +258,7 @@ namespace Scheduler
                         Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
                         fact = false;
                     }
-                    //list of Employees that are not able to work via, sick, off, vacation, & workable tables + count
-                    //int workableemployees = Reader.
-                    //if(notworkingemployees - workableemployees)
-                    numofvacationdays++;
+                      numofvacationdays++;
                     date = date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
