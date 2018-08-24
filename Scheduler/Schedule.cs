@@ -221,7 +221,7 @@ namespace Scheduler
                     Console.WriteLine(day + " current day");
                     date = date.AddDays(1.0);
                 } while (!(date > enddate) && fact);
-                if ((Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
                 {
                     Creator.AddOffDay(employeeid, startdate, enddate);
                 }
@@ -261,7 +261,7 @@ namespace Scheduler
                     date = date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
-                if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                if ((Lawyer.GetYesNo("Are you sure you want to add the vacation day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
                 {
                     Creator.AddVacation(employeeid, startdate, enddate);
                     Updater.RemoveVacationsByEmployeeID(employeeid, numofvacationdays);
@@ -379,7 +379,7 @@ namespace Scheduler
                 if(Lawyer.GetYesNo("Do you want to add vacations?"))
                 {
                     int days = Lawyer.GetInt("How many days do you want to add?");
-                    if (Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) - days) + "?"))
+                    if (Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) + days) + "?"))
                     {
                         Updater.AddVacationsByEmployeeID(employeeid, days);
                         Console.Clear();
@@ -388,7 +388,7 @@ namespace Scheduler
                 else if(Lawyer.GetYesNo("Do you want to take off vacations?"))
                 {
                     int days = Lawyer.GetInt("How may days  do you want to subtract?");
-                    if(Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) + days) + "?"))
+                    if(Lawyer.GetYesNo("Are you sure you want to set vacations from " + Reader.GetNumberOfVacations(employeeid) + " to be " + (Reader.GetNumberOfVacations(employeeid) - days) + "?"))
                     {
                         Updater.RemoveVacationsByEmployeeID(employeeid, days);
                         Console.Clear();

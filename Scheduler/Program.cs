@@ -30,6 +30,10 @@ namespace Scheduler
                 {
                     schedule.AddVacation();
                 }
+                else if(lawyer.GetYesNo("Do you want to update number of vacation days for an employee?"))
+                {
+                    schedule.UpdateVacations();
+                }
                 else
                 {
                     Console.WriteLine("Okay then");
