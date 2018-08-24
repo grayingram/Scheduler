@@ -219,7 +219,7 @@ namespace Scheduler
                 Console.WriteLine(day + " current day");
                 date = date.AddDays(1.0);
             } while (!(date > enddate)&& fact);
-            if(Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
+            if((Lawyer.GetYesNo("Are you sure you want to add the vacation of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
             {
                 Creator.AddVacation(employeeid, startdate, enddate);
             }
@@ -255,7 +255,7 @@ namespace Scheduler
                 date = date = date.AddDays(1.00);
                 
             } while ((!(date > enddate )) && fact);
-            if (Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
+            if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
             {
                 Creator.AddOffDay(employeeid, startdate, enddate);
                 int numofvacationdays = DateTime.Compare(startdate, enddate);
@@ -288,8 +288,8 @@ namespace Scheduler
                 //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                 Console.WriteLine(day + " current day");
                 date.AddDays(1.0);
-            } while (!(date > enddate));
-            if (Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
+            } while ((!(date > enddate)) && fact);
+            if ((Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
             {
                 Creator.AddSickDay(employeeid, startdate, enddate);
             }
