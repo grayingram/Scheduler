@@ -289,7 +289,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.StartDate <= @date OR v.EndDate >= @date;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.StartDate = @date OR v.EndDate = @date;";
                 cmd.Parameters.AddWithValue("date", date);
                 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -310,7 +310,9 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE o.StartDay <= @date OR o.EndDay >= @date";
+                //SELECT * FROM offdays as o WHERE o.StartDay between '2018-08-29' and '2018-08-29' OR o.EndDay between '2018-08-29' and '2018-08-29';
+
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE o.StartDay = @date OR o.EndDay = @date";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -332,7 +334,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as s WHERE s.StartDate <= @date OR s.EndDate >= @date;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as s WHERE s.StartDate = @date OR s.EndDate = @date;";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
