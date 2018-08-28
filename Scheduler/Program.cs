@@ -10,29 +10,14 @@ namespace Scheduler
             Lawyer lawyer = new Lawyer();
             do
             {
-                if (lawyer.GetYesNo("Do you want to Add an employee?"))
+                if (lawyer.GetYesNo("Do you want to Add a record?"))
                 {
-                    schedule.AddEmployee();
+                    Create(schedule, lawyer);
                 }
-                else if(lawyer.GetYesNo("Do you want to set workable days for an employee?"))
+                
+                else if(lawyer.GetYesNo("Do you want to update any records?"))
                 {
-                    schedule.SetWorkableDays();
-                }
-                else if(lawyer.GetYesNo("Do you want to update workable days for an employee?"))
-                {
-                    schedule.UpdateWorkableDays();
-                }
-                else if(lawyer.GetYesNo("Do you want to set workable late days for an employee"))
-                {
-                    schedule.SetWorkableLateDays();
-                }
-                else if(lawyer.GetYesNo("Do you want to set a vacation days for an employee"))
-                {
-                    schedule.AddVacation();
-                }
-                else if(lawyer.GetYesNo("Do you want to update number of vacation days for an employee?"))
-                {
-                    schedule.UpdateVacations();
+                    Update(schedule, lawyer);
                 }
                 else
                 {
@@ -42,19 +27,57 @@ namespace Scheduler
             Console.WriteLine("Program end");
             Console.ReadLine();
         }
-        public static void Create()
+        public static void Create(Schedule schedule, Lawyer lawyer)
+        {
+            do
+            {
+                if (lawyer.GetYesNo("Do you want to Add an employee?"))
+                {
+                    schedule.AddEmployee();
+                }
+                else if (lawyer.GetYesNo("Do you want to add vacation days for an employee?"))
+                {
+                    schedule.AddVacation();
+                }
+                else if (lawyer.GetYesNo("Do you want to add off days for an employee?"))
+                {
+                    schedule.AddOffDay();
+                }
+                else if (lawyer.GetYesNo("Do you want to add sick days for an employee?"))
+                {
+                    schedule.AddSickDay();
+                }
+                else if (lawyer.GetYesNo("Do you want to set workable days for an employee?"))
+                {
+                    schedule.SetWorkableDays();
+                }
+                else if (lawyer.GetYesNo("Do you want to set workable late days for an employee"))
+                {
+                    schedule.SetWorkableLateDays();
+                }
+            } while (lawyer.GetYesNo("Do you want to add more records?"));
+        }
+        public static void Update(Schedule schedule, Lawyer lawyer)
+        {
+            do
+            {
+                if (lawyer.GetYesNo("Do you want to update workable days for an employee?"))
+                {
+                    schedule.UpdateWorkableDays();
+                }
+
+
+                else if (lawyer.GetYesNo("Do you want to update number of vacation days for an employee?"))
+                {
+                    schedule.UpdateVacations();
+                }
+            } while (lawyer.GetYesNo("Do you want to update any other records?"));
+        }
+        public static void Read(Schedule schedule, Lawyer lawyer)
         {
 
         }
-        public static void Update()
-        {
-
-        }
-        public static void Read()
-        {
-
-        }
-        public static void Delete()
+        public static void Delete(Schedule schedule, Lawyer lawyer)
         {
 
         }
