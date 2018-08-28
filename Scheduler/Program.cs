@@ -42,5 +42,21 @@ namespace Scheduler
             Console.WriteLine("Program end");
             Console.ReadLine();
         }
+        public static void Create()
+        {
+
+        }
+        public static void Update()
+        {
+
+        }
+        public static void Read()
+        {
+
+        }
+        public static void Delete()
+        {
+
+        }
     }
 }

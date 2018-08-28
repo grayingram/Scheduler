@@ -571,7 +571,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(v.employeeId) AS result FROM vacation v WHERE employeeID = @employeeId AND StartDate BETWEEN @start and @end OR EndDate BETWEEN @start AND @end;";
+                cmd.CommandText = "SELECT Count(v.employeeId) AS result FROM vacation v WHERE employeeID = @employeeId AND (StartDate BETWEEN @start and @end OR EndDate BETWEEN @start AND @end);";
                 cmd.Parameters.AddWithValue("employeeId", employeeid);
                 cmd.Parameters.AddWithValue("start", start);
                 cmd.Parameters.AddWithValue("end", end);
@@ -580,7 +580,7 @@ namespace Scheduler
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
                 int count = int.Parse(dr[0].ToString());
-                if (count == 1)
+                if (count >= 1)
                 {
                     return true;
                 }
@@ -599,7 +599,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(o.employeeId) AS result FROM offdays o WHERE employeeID = @employeeId AND StartDay BETWEEN @start and @end OR EndDay BETWEEN @start AND @end;";
+                cmd.CommandText = "SELECT Count(o.employeeId) AS result FROM offdays o WHERE employeeID = @employeeId AND (StartDay BETWEEN @start and @end OR EndDay BETWEEN @start AND @end);";
                 cmd.Parameters.AddWithValue("employeeId", employeeid);
                 cmd.Parameters.AddWithValue("start", start);
                 cmd.Parameters.AddWithValue("end", end);
@@ -627,7 +627,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(s.employeeId) AS result FROM vacation s WHERE employeeID = @employeeId AND StartDate BETWEEN @start and @end OR EndDate BETWEEN @start AND @end;";
+                cmd.CommandText = "SELECT Count(s.employeeId) AS result FROM vacation s WHERE employeeID = @employeeId AND (StartDate BETWEEN @start and @end OR EndDate BETWEEN @start AND @end);";
                 cmd.Parameters.AddWithValue("employeeId", employeeid);
                 cmd.Parameters.AddWithValue("start", start);
                 cmd.Parameters.AddWithValue("end", end);

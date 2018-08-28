@@ -218,9 +218,19 @@ namespace Scheduler
                     Console.WriteLine(day + " current day");
                     date = date.AddDays(1.0);
                 } while (!(date > enddate) && fact);
-                if ((Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
+                if (fact && !(conflictfact))
                 {
-                    Creator.AddOffDay(employeeid, startdate, enddate);
+                    if(Lawyer.GetYesNo("Are you sure you want to add the off day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
+                    {
+                        Creator.AddOffDay(employeeid, startdate, enddate);
+                    }
+                    
+                }
+                else if (conflictfact)
+                {
+                    Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given off days.");
+
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another off day for an employee?"));
@@ -256,10 +266,20 @@ namespace Scheduler
                     date = date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
-                if ((Lawyer.GetYesNo("Are you sure you want to add the vacation day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
+                if (fact && !(conflictfact))
                 {
-                    Creator.AddVacation(employeeid, startdate, enddate);
-                    Updater.RemoveVacationsByEmployeeID(employeeid, numofvacationdays);
+                    if((Lawyer.GetYesNo("Are you sure you want to add the vacation day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())))
+                    {
+                        Creator.AddVacation(employeeid, startdate, enddate);
+                        Updater.RemoveVacationsByEmployeeID(employeeid, numofvacationdays);
+                    }
+                    
+                }
+                else if (conflictfact)
+                {
+                    Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given vacation days.");
+                    Console.ReadLine();
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another vacation for another employee?"));
@@ -289,9 +309,19 @@ namespace Scheduler
                     Console.WriteLine(day + " current day");
                     date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
-                if ((Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString())) && fact)
+                bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
+                if (fact && !(conflictfact))
                 {
-                    Creator.AddSickDay(employeeid, startdate, enddate);
+                    if(Lawyer.GetYesNo("Are you sure you want to add the sick day/s of " + employee.PrintName() + " from " + startdate.ToLongDateString() + " to " + enddate.ToLongDateString()))
+                    {
+                        Creator.AddSickDay(employeeid, startdate, enddate);
+                    }
+                    
+                }
+                else if (conflictfact)
+                {
+                    Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given sick days.");
+                    Console.ReadLine();
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another sick-leave for another employee?"));
@@ -308,6 +338,10 @@ namespace Scheduler
             dates.Add(startdate);
             dates.Add(enddate);
             return dates;
+        }
+        private bool DoesConflictExist(int employeeid, DateTime start, DateTime end)
+        {
+            return (Reader.DoesOffDayExist(employeeid, start, end) || Reader.DoesSickDayExist(employeeid, start, end) || Reader.DoesVacationExist(employeeid, start, end));
         }
 
         public void UpdateWorkableDays()
