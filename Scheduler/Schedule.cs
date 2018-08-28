@@ -209,10 +209,15 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    if ((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + day);
+                            Console.ReadLine();
+                            fact = false;
+                        }
+
                     }
                     int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     date = date.AddDays(1.0);
@@ -229,14 +234,19 @@ namespace Scheduler
                 else if (conflictfact)
                 {
                     Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given off days.");
-
+                    Console.ReadLine();
+                }
+                else if (!fact)
+                {
+                    Console.WriteLine("Not enough workers some how");
+                    Console.ReadLine();
                 }
                 Console.Clear();
-                if (Lawyer.GetYesNo("Do you want to add vacation days for the same employee?"))
+                if (Lawyer.GetYesNo("Do you want to add off days for the same employee?"))
                 {
                     AddOffDay(employee);
                 }
-            } while (Lawyer.GetYesNo("Do you want to add another off day for an employee?"));
+            } while (Lawyer.GetYesNo("Do you want to add off day/s for another employee?"));
 
         }
         private void AddOffDay(Employee employee)
@@ -254,10 +264,15 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    if ((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + day);
+                            Console.ReadLine();
+                            fact = false;
+                        }
+
                     }
                     int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     date = date.AddDays(1.0);
@@ -274,7 +289,12 @@ namespace Scheduler
                 else if (conflictfact)
                 {
                     Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given off days.");
-
+                    Console.ReadLine();
+                }
+                else if (!fact)
+                {
+                    Console.WriteLine("Not enough workers some how");
+                    Console.ReadLine();
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another off day for the same employee?"));
@@ -300,10 +320,15 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3 || numofvacationdays > Reader.GetNumberOfVacations(employeeid))
+                    if ((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3 || numofvacationdays > Reader.GetNumberOfVacations(employeeid))
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                            Console.ReadLine();
+                            fact = false;
+                        }
+                        
                     }
                     numofvacationdays++;
                     date = date.AddDays(1.00);
@@ -324,12 +349,17 @@ namespace Scheduler
                     Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given vacation days.");
                     Console.ReadLine();
                 }
+                else if (!fact)
+                {
+                    Console.WriteLine("Not enough workers some how");
+                    Console.ReadLine();
+                }
                 Console.Clear();
                 if (Lawyer.GetYesNo("Do you want to add vacation days for the same employee?"))
                 {
                     AddVacation(employee);
                 }
-            } while (Lawyer.GetYesNo("Do you want to add another vacation for another employee?"));
+            } while (Lawyer.GetYesNo("Do you want to add a vacation for another employee?"));
         }
         private void AddVacation(Employee employee)
         {
@@ -347,10 +377,15 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3 || numofvacationdays > Reader.GetNumberOfVacations(employeeid))
+                    if ((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3 || numofvacationdays > Reader.GetNumberOfVacations(employeeid))
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                            Console.ReadLine();
+                            fact = false;
+                        }
+
                     }
                     numofvacationdays++;
                     date = date.AddDays(1.00);
@@ -369,6 +404,11 @@ namespace Scheduler
                 else if (conflictfact)
                 {
                     Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given vacation days.");
+                    Console.ReadLine();
+                }
+                else if (!fact)
+                {
+                    Console.WriteLine("Not enough workers some how");
                     Console.ReadLine();
                 }
                 Console.Clear();
@@ -391,10 +431,15 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    if ((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                            Console.ReadLine();
+                            fact = false;
+                        }
+
                     }
                     date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
@@ -412,12 +457,17 @@ namespace Scheduler
                     Console.WriteLine("Sorry but there was a conflict with trying to schedule this employee for the given sick days.");
                     Console.ReadLine();
                 }
+                else if (!fact)
+                {
+                    Console.WriteLine("Not enough workers some how");
+                    Console.ReadLine();
+                }
                 Console.Clear();
                 if(Lawyer.GetYesNo("Do you want to add sick days for the same employee?"))
                 {
                     AddSickDay(employee);
                 }
-            } while (Lawyer.GetYesNo("Do you want to add another sick-leave for another employee?"));
+            } while (Lawyer.GetYesNo("Do you want to add a sick-leave for another employee?"));
         }
         private void AddSickDay(Employee employee)
         {
@@ -433,10 +483,14 @@ namespace Scheduler
                     var day = date.DayOfWeek.ToString();
                     int notworkingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     int workableemployees = Reader.GetNumberOfWorkableEmployees(date);
-                    if ((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                    if((day != "Saturday") && (day != "Sunday"))
                     {
-                        Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
-                        fact = false;
+                        if((notworkingemployees - workableemployees) > (GetEmployees() / 2) - 3)
+                        {
+                            Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
+                            fact = false;
+                        }
+                        
                     }
                     date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
