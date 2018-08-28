@@ -14,7 +14,7 @@ namespace Scheduler
         private Updater Updater { get; set; } = new Updater();
 
         public Schedule()
-        {    
+        {
             //DaysWorkable = Lawyer.GetInt("How many days of the week is this company open for?");
             //NumberOfEmployees = Lawyer.GetInt("How many employees work in this company?");
         }
@@ -28,14 +28,14 @@ namespace Scheduler
                 }
                 string firstname = Lawyer.GetResponse("What is the first name of this employee?");
                 string lastname = Lawyer.GetResponse("What is the last name of this employee?");
-                while(Reader.DoesEmployeeExist(firstname, lastname))
+                while (Reader.DoesEmployeeExist(firstname, lastname))
                 {
                     Console.WriteLine("Sorry but that employee already exists, try again");
                     firstname = Lawyer.GetResponse("What is the first name of this employee?");
                     lastname = Lawyer.GetResponse("What is the last name of this employee?");
                 }
                 int vacations = Lawyer.GetInt("How many vacation days does this employee have for the year?");
-                if(Lawyer.GetYesNo("Are you sure you want to add " + firstname + " " + lastname + " to the employees"))
+                if (Lawyer.GetYesNo("Are you sure you want to add " + firstname + " " + lastname + " to the employees"))
                 {
                     Creator.AddEmployee(firstname, lastname, vacations);
                     NumberOfEmployees++;
@@ -198,12 +198,9 @@ namespace Scheduler
             {
                 Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-                int year = Lawyer.GetYear("What year is these off days taking place?");
-                int month = Lawyer.GetMonth("What numerical month is these off days taking place?");
-                int startday = Lawyer.GetDay("What day of the month will these off days start?", month, year);
-                int endday = Lawyer.GetDay("What day of the month will these off days end?", month, year);
-                DateTime startdate = new DateTime(year, month, startday);
-                DateTime enddate = new DateTime(year, month, endday);
+                List<DateTime> dates = GetDates("off-days");
+                DateTime startdate = dates[0];
+                DateTime enddate = dates[1];
                 DateTime date = startdate;
                 bool fact = true;
                 do
@@ -229,9 +226,9 @@ namespace Scheduler
             } while (Lawyer.GetYesNo("Do you want to add another off day for an employee?"));
 
         }
-              /// <summary>
-              /// validates inforamtion form user before adding vacation
-              /// </summary>
+        /// <summary>
+        /// validates inforamtion form user before adding vacation
+        /// </summary>
 
         public void AddVacation()
         {
@@ -239,12 +236,9 @@ namespace Scheduler
             {
                 Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee.FirstName, employee.LastName);
-                int year = Lawyer.GetYear("What year is this vacation be taking place?");
-                int month = Lawyer.GetMonth("What numerical month is this vacation be taking place?");
-                int startday = Lawyer.GetDay("What day of the month will this vacation start?", month, year);
-                int endday = Lawyer.GetDay("What day of the month will this vacation end?", month, year);
-                DateTime startdate = new DateTime(year, month, startday);
-                DateTime enddate = new DateTime(year, month, endday);
+                List<DateTime> dates = GetDates("vacation");
+                DateTime startdate = dates[0];
+                DateTime enddate = dates[1];
                 DateTime date = startdate;
                 int numofvacationdays = 0;
                 bool fact = true;
@@ -258,7 +252,7 @@ namespace Scheduler
                         Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
                         fact = false;
                     }
-                      numofvacationdays++;
+                    numofvacationdays++;
                     date = date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
@@ -276,12 +270,9 @@ namespace Scheduler
             {
                 Employee employee = GetEmployee();
                 int employeeid = Reader.GetEmployeeId(employee);
-                int year = Lawyer.GetYear("What year is this sick/recovery be taking place?");
-                int month = Lawyer.GetMonth("What numerical month is this sick/recovery be taking place?");
-                int startday = Lawyer.GetDay("What day of the month will this sick/recovery start?", month, year);
-                int endday = Lawyer.GetDay("What day of the month will this sick/recovery end?", month, year);
-                DateTime startdate = new DateTime(year, month, startday);
-                DateTime enddate = new DateTime(year, month, endday);
+                List<DateTime> dates = GetDates("sick-leave");
+                DateTime startdate = dates[0];
+                DateTime enddate = dates[1];
                 DateTime date = startdate;
                 bool fact = true;
                 do
@@ -304,6 +295,19 @@ namespace Scheduler
                 }
                 Console.Clear();
             } while (Lawyer.GetYesNo("Do you want to add another sick-leave for another employee?"));
+        }
+        private List<DateTime> GetDates(string word)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            int year = Lawyer.GetYear("What year is this " + word + " be taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this " + word +"  be taking place?");
+            int startday = Lawyer.GetDay("What day of the month will this " + word +" start?", month, year);
+            int endday = Lawyer.GetDay("What day of the month will this " + word + " end?", month, year);
+            DateTime startdate = new DateTime(year, month, startday);
+            DateTime enddate = new DateTime(year, month, endday);
+            dates.Add(startdate);
+            dates.Add(enddate);
+            return dates;
         }
 
         public void UpdateWorkableDays()
