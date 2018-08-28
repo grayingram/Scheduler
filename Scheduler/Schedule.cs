@@ -214,8 +214,6 @@ namespace Scheduler
                         fact = false;
                     }
                     int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                    //if(workingemployees - )
-                    Console.WriteLine(day + " current day");
                     date = date.AddDays(1.0);
                 } while (!(date > enddate) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
@@ -263,7 +261,7 @@ namespace Scheduler
                         fact = false;
                     }
                     numofvacationdays++;
-                    date = date = date.AddDays(1.00);
+                    date = date.AddDays(1.00);
 
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
@@ -305,8 +303,6 @@ namespace Scheduler
                         Console.WriteLine("Sorry but there is a conflict with this day:" + date.ToString());
                         fact = false;
                     }
-                    //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
-                    Console.WriteLine(day + " current day");
                     date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
@@ -330,7 +326,7 @@ namespace Scheduler
         {
             List<DateTime> dates = new List<DateTime>();
             int year = Lawyer.GetYear("What year is this " + word + " be taking place?");
-            int month = Lawyer.GetMonth("What numerical month is this " + word +"  be taking place?");
+            int month = Lawyer.GetMonth("What numerical month is this " + word +" be taking place?");
             int startday = Lawyer.GetDay("What day of the month will this " + word +" start?", month, year);
             int endday = Lawyer.GetDay("What day of the month will this " + word + " end?", month, year);
             DateTime startdate = new DateTime(year, month, startday);
