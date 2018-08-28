@@ -219,7 +219,7 @@ namespace Scheduler
                         }
 
                     }
-                    int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
+                    //int workingemployees = Reader.GetNumberOfOffEmployees(date) + Reader.GetNumberOfSickEmployees(date) + Reader.GetNumberOfVacaEmployees(date);
                     date = date.AddDays(1.0);
                 } while (!(date > enddate) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
@@ -255,8 +255,11 @@ namespace Scheduler
                             AddOffDay(employee, int.Parse(date.Year.ToString()));
                         }
                     }
-
-                    AddOffDay(employee);
+                    else
+                    {
+                        AddOffDay(employee);
+                    }
+                    
                 }
             } while (Lawyer.GetYesNo("Do you want to add off day/s for another employee?"));
 
@@ -477,8 +480,10 @@ namespace Scheduler
                             AddVacation(employee, int.Parse(date.Year.ToString()));
                         }
                     }
-
-                    AddOffDay(employee);
+                    else
+                    {
+                        AddOffDay(employee);
+                    }
                 }
             } while (Lawyer.GetYesNo("Do you want to add a vacation for another employee?"));
         }
@@ -668,7 +673,7 @@ namespace Scheduler
                         }
 
                     }
-                    date.AddDays(1.0);
+                    date = date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
                 if (fact && !(conflictfact))
@@ -703,8 +708,11 @@ namespace Scheduler
                             AddSickDay(employee, int.Parse(date.Year.ToString()));
                         }
                     }
-
-                    AddOffDay(employee);
+                    else
+                    {
+                        AddSickDay(employee);
+                    }
+                    
                 }
             } while (Lawyer.GetYesNo("Do you want to add a sick days for another employee?"));
         }
@@ -731,7 +739,7 @@ namespace Scheduler
                         }
                         
                     }
-                    date.AddDays(1.0);
+                    date = date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
                 if (fact && !(conflictfact))
@@ -775,7 +783,7 @@ namespace Scheduler
                         }
 
                     }
-                    date.AddDays(1.0);
+                    date = date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
                 if (fact && !(conflictfact))
@@ -819,7 +827,7 @@ namespace Scheduler
                         }
 
                     }
-                    date.AddDays(1.0);
+                    date = date.AddDays(1.0);
                 } while ((!(date > enddate)) && fact);
                 bool conflictfact = DoesConflictExist(employeeid, startdate, enddate);
                 if (fact && !(conflictfact))
