@@ -280,7 +280,6 @@ namespace Scheduler
             }
         }
 
-
         public int GetNumberOfVacaEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -430,7 +429,6 @@ namespace Scheduler
                 return employeecount;
             }
         }
-
 
         public bool DoesEmployeeExist(string firstname, string lastname)
         {
