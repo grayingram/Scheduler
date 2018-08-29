@@ -16,21 +16,56 @@ namespace Scheduler
             List<Employee> employees = Reader.ReadEmployees();
             for(int i = 0; i < DateTime.DaysInMonth(year, month); i++)
             {
+                Console.WriteLine(date.DayOfWeek.ToString() + " " + date.Day.ToString());
                 List<Employee> workable = Reader.GetWorkableEmployees(date);
                 List<Employee> vacationing = Reader.GetVacationingEmployees(date);
                 List<Employee> off = Reader.GetOffEmployees(date);
                 List<Employee> sick = Reader.GetSickEmployees(date);
                 List<Employee> workablelate = Reader.GetWorkableLateEmployees(date);
                 List<Employee> scheduled = new List<Employee>();
+                List<Employee> scheduledlate = new List<Employee>();
+                bool fact = false;
                 foreach(Employee employee in workablelate)
                 {
                     if(workable.Contains(employee) && (!vacationing.Contains(employee) || !off.Contains(employee) || !sick.Contains(employee)))
                     {
                         scheduled.Add(employee);
                     }
+                    else if (workablelate.Contains(employee) && (!vacationing.Contains(employee) || !off.Contains(employee) || !sick.Contains(employee)))
+                    {
+                        scheduledlate.Add(employee);
+                    }
+
+                }
+                foreach(Employee employee in employees)
+                {
+                    Console.Write(employee.LastName + ": ");
+                    if (vacationing.Contains(employee))
+                    {
+                        Console.Write("V");
+                    }
+                    else if (off.Contains(employee))
+                    {
+                        Console.Write("O");
+                    }
+                    else if (sick.Contains(employee))
+                    {
+                        Console.Write("S");
+                    }
+                    else if(scheduled.Contains(employee))
+                    {
+                        Console.Write("R");
+                    }
+                    else if(scheduledlate.Contains(employee) && !fact)
+                    {
+                        Console.Write("C");
+                        fact = !fact;
+                    }
+                    Console.ReadLine();
                 }
                 date = date.AddDays(1.00);
             }
         }
+
     }
 }

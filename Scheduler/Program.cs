@@ -9,14 +9,19 @@ namespace Scheduler
             Schedule schedule = new Schedule();
             Lawyer lawyer = new Lawyer();
             Manager manager = new Manager();
+            
+            if(lawyer.GetYesNo("Do you want to build the schedule?"))
+            {
+                manager.MakeSchedule();
+            }
             do
             {
                 if (lawyer.GetYesNo("Do you want to Add a record?"))
                 {
                     Create(schedule, lawyer);
                 }
-                
-                else if(lawyer.GetYesNo("Do you want to update any records?"))
+
+                else if (lawyer.GetYesNo("Do you want to update any records?"))
                 {
                     Update(schedule, lawyer);
                 }
@@ -25,10 +30,6 @@ namespace Scheduler
                     Console.WriteLine("Okay then");
                 }
             } while (lawyer.GetYesNo("Do you want to add anything else to the tables"));
-            if(lawyer.GetYesNo("Do you want to build the schedule?"))
-            {
-                manager.MakeSchedule();
-            }
             Console.WriteLine("Program end");
             Console.ReadLine();
         }
