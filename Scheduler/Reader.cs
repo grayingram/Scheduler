@@ -177,108 +177,7 @@ namespace Scheduler
                 return employeecount;
             }
         }
-
-        private List<Employee> GetWorkableEmployeesMon()
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            List<Employee> employees = new List<Employee>();
-            using (conn)
-            {
-                conn.Open();
-
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where wd.Monday = 1;";
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
-                }
-                return employees;
-            }
-        }
-        private List<Employee> GetWorkableEmployeesTues()
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            List<Employee> employees = new List<Employee>();
-            using (conn)
-            {
-                conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Tuesday = 1;";
-
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
-                }
-                return employees;
-            }
-       }
-        private List<Employee> GetWorkableEmployeesWed()
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            List<Employee> employees = new List<Employee>();
-            using (conn)
-            {
-                conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Wednesday = 1;";
-
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
-                }
-                return employees;
-            }
-        }
-        private List<Employee> GetWorkableEmployeesThurs()
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            List<Employee> employees = new List<Employee>();
-            using (conn)
-            {
-                conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Thursday = 1;";
-
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
-                }
-                return employees;
-            }
-        }
-        private List<Employee> GetWorkableEmployeesFri()
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            List<Employee> employees = new List<Employee>();
-            using (conn)
-            {
-                conn.Open();
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Friday = 1;";
-
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
-                }
-                return employees;
-            }
-        }
-
+                   
         public int GetNumberOfVacaEmployees(DateTime date)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -454,23 +353,104 @@ namespace Scheduler
         {
             if (date.DayOfWeek.ToString() == "Monday")
             {
-                return GetWorkableEmployeesMon();
+                MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+                List<Employee> employees = new List<Employee>();
+                using (conn)
+                {
+                    conn.Open();
+
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where wd.Monday = 1;";
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        employees.Add(employee);
+                    }
+                    return employees;
+                }
+                
             }
             else if (date.DayOfWeek.ToString() == "Tuesday")
             {
-                return GetWorkableEmployeesTues();
+                MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+                List<Employee> employees = new List<Employee>();
+                using (conn)
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Tuesday = 1;";
+
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        employees.Add(employee);
+                    }
+                    return employees;
+                }
             }
             else if (date.DayOfWeek.ToString() == "Wednesday")
             {
-                return GetWorkableEmployeesWed();
+                MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+                List<Employee> employees = new List<Employee>();
+                using (conn)
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Wednesday = 1;";
+
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        employees.Add(employee);
+                    }
+                    return employees;
+                }
             }
             else if (date.DayOfWeek.ToString() == "Thursday")
             {
-                return GetWorkableEmployeesThurs();
+                MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+                List<Employee> employees = new List<Employee>();
+                using (conn)
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Thursday = 1;";
+
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        employees.Add(employee);
+                    }
+                    return employees;
+                }
             }
             else if (date.DayOfWeek.ToString() == "Friday")
             {
-                return GetWorkableEmployeesFri();
+                MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+                List<Employee> employees = new List<Employee>();
+                using (conn)
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join workabledays as wd on e.EmployeeID = wd.EmployeeID Where Friday = 1;";
+
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        employees.Add(employee);
+                    }
+                    return employees;
+                }
             }
             return new List<Employee>();
         }
