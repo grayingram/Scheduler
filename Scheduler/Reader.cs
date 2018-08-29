@@ -288,7 +288,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.StartDate = @date OR v.EndDate = @date;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM vacation as v WHERE v.StartDate <= @date AND v.EndDate >= @date;";
                 cmd.Parameters.AddWithValue("date", date);
                 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -311,7 +311,7 @@ namespace Scheduler
                 MySqlCommand cmd = conn.CreateCommand();
                 //SELECT * FROM offdays as o WHERE o.StartDay between '2018-08-29' and '2018-08-29' OR o.EndDay between '2018-08-29' and '2018-08-29';
 
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE o.StartDay = @date OR o.EndDay = @date";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM offdays as o WHERE o.StartDay <= @date AND o.EndDay >= @date";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -333,7 +333,7 @@ namespace Scheduler
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as s WHERE s.StartDate = @date OR s.EndDate = @date;";
+                cmd.CommandText = "SELECT Count(EmployeeID) FROM sick as s WHERE s.StartDate <= @date AND s.EndDate >= @date;";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -345,6 +345,67 @@ namespace Scheduler
                 return employeecount;
             }
         }
+        public List<Employee> GetVacationingEmployees(DateTime date)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            List<Employee> employees = new List<Employee>();
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join vacation as v on e.EmployeeID = v.EmployeeID Where v.StartDate <= @date AND v.EndDate >= @date;";
+                cmd.Parameters.AddWithValue("date", date);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    employees.Add(employee);
+                }
+                return employees;
+            }
+        }
+        public List<Employee> GetSickEmployees(DateTime date)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            List<Employee> employees = new List<Employee>();
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join sick as s on e.EmployeeID = s.EmployeeID Where s.StartDate <= @date AND s.EndDate >= @date;";
+                cmd.Parameters.AddWithValue("date", date);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    employees.Add(employee);
+                }
+                return employees;
+            }
+        }
+        public List<Employee> GetOffEmployees(DateTime date)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            List<Employee> employees = new List<Employee>();
+            using (conn)
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join offday as o on e.EmployeeID = o.EmployeeID Where o.StartDate <= @date AND o.EndDate >= @date;";
+                cmd.Parameters.AddWithValue("date", date);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    employees.Add(employee);
+                }
+                return employees;
+            }
+        }
+
         public int GetNumberOfEmployeeWSameName(string lastname)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
