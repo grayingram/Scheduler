@@ -7,6 +7,7 @@ namespace Scheduler
     class Manager
     {
         private Lawyer Lawyer { get; set; } = new Lawyer();
+        private Reader Reader { get; set; } = new Reader();
         public void MakeSchedule()
         {
             int year = Lawyer.GetYear("What year is this schedule being made?");
@@ -14,7 +15,10 @@ namespace Scheduler
             DateTime date = new DateTime(year, month, 1);
             for(int i = 0; i < DateTime.DaysInMonth(year, month); i++)
             {
-
+                List<Employee> workable = Reader.GetWorkableEmployees(date);
+                List<Employee> vacationing = Reader.GetVacationingEmployees(date);
+                List<Employee> off = Reader.GetOffEmployees(date);
+                List<Employee> sick = Reader.GetSickEmployees(date);
             }
         }
     }

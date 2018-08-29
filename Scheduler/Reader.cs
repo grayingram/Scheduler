@@ -178,7 +178,7 @@ namespace Scheduler
             }
         }
 
-        private List<Employee> GetNumOfWorkableEmployeesMonByList()
+        private List<Employee> GetWorkableEmployeesMon()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
             List<Employee> employees = new List<Employee>();
@@ -198,7 +198,7 @@ namespace Scheduler
                 return employees;
             }
         }
-        private List<Employee> GetNumOfWorkableEmployeesTuesByList()
+        private List<Employee> GetWorkableEmployeesTues()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
             List<Employee> employees = new List<Employee>();
@@ -218,7 +218,7 @@ namespace Scheduler
                 return employees;
             }
        }
-        private List<Employee> GetNumOfWorkableEmployeesWedByList()
+        private List<Employee> GetWorkableEmployeesWed()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
             List<Employee> employees = new List<Employee>();
@@ -238,7 +238,7 @@ namespace Scheduler
                 return employees;
             }
         }
-        private List<Employee> GetNumOfWorkableEmployeesThursByList()
+        private List<Employee> GetWorkableEmployeesThurs()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
             List<Employee> employees = new List<Employee>();
@@ -258,7 +258,7 @@ namespace Scheduler
                 return employees;
             }
         }
-        private List<Employee> GetNumOfWorkableEmployeesFriByList()
+        private List<Employee> GetWorkableEmployeesFri()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
             List<Employee> employees = new List<Employee>();
@@ -450,27 +450,27 @@ namespace Scheduler
             }
             return 0;
         }
-        public List<Employee> GetNumberOfWorkableEmployeesByList(DateTime date)
+        public List<Employee> GetWorkableEmployees(DateTime date)
         {
             if (date.DayOfWeek.ToString() == "Monday")
             {
-                return GetNumOfWorkableEmployeesMonByList();
+                return GetWorkableEmployeesMon();
             }
             else if (date.DayOfWeek.ToString() == "Tuesday")
             {
-                return GetNumOfWorkableEmployeesTuesByList();
+                return GetWorkableEmployeesTues();
             }
             else if (date.DayOfWeek.ToString() == "Wednesday")
             {
-                return GetNumOfWorkableEmployeesWedByList();
+                return GetWorkableEmployeesWed();
             }
             else if (date.DayOfWeek.ToString() == "Thursday")
             {
-                return GetNumOfWorkableEmployeesThursByList();
+                return GetWorkableEmployeesThurs();
             }
             else if (date.DayOfWeek.ToString() == "Friday")
             {
-                return GetNumOfWorkableEmployeesFriByList();
+                return GetWorkableEmployeesFri();
             }
             return new List<Employee>();
         }
