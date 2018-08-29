@@ -259,7 +259,11 @@ namespace Scheduler
                 while (dr.Read())
                 {
                     Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
-                    employees.Add(employee);
+                    if (!employees.Contains(employee))
+                    {
+                        employees.Add(employee);
+                    }
+                    
                 }
                 return employees;
             }
@@ -292,7 +296,7 @@ namespace Scheduler
             {
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join offday as o on e.EmployeeID = o.EmployeeID Where o.StartDate <= @date AND o.EndDate >= @date;";
+                cmd.CommandText = "SELECT e.EmployeeID, e.LastName, e.FirstName FROM employees as e Join offdays as o on e.EmployeeID = o.EmployeeID Where o.StartDay <= @date AND o.EndDay >= @date;";
                 cmd.Parameters.AddWithValue("date", date);
 
                 MySqlDataReader dr = cmd.ExecuteReader();

@@ -25,7 +25,7 @@ namespace Scheduler
                 List<Employee> scheduled = new List<Employee>();
                 List<Employee> scheduledlate = new List<Employee>();
                 bool fact = false;
-                foreach(Employee employee in workablelate)
+                foreach(Employee employee in employees)
                 {
                     if(workable.Contains(employee) && (!vacationing.Contains(employee) || !off.Contains(employee) || !sick.Contains(employee)))
                     {
@@ -37,9 +37,13 @@ namespace Scheduler
                     }
 
                 }
+                Console.WriteLine("Vacationing employees: " + vacationing.Capacity);
+                Console.WriteLine(" Sick employees: " + sick.Capacity);
+                Console.WriteLine(" Off employees: " + off.Capacity);
                 foreach(Employee employee in employees)
                 {
-                    Console.Write(employee.LastName + ": ");
+                     
+                    //Console.Write(employee.LastName + ": ");
                     if (vacationing.Contains(employee))
                     {
                         Console.Write("V");
