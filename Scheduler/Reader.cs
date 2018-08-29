@@ -198,7 +198,6 @@ namespace Scheduler
                 return employees;
             }
         }
-
         private List<Employee> GetNumOfWorkableEmployeesTuesByList()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);

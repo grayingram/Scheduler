@@ -8,6 +8,7 @@ namespace Scheduler
         {
             Schedule schedule = new Schedule();
             Lawyer lawyer = new Lawyer();
+            Manager manager = new Manager();
             do
             {
                 if (lawyer.GetYesNo("Do you want to Add a record?"))
@@ -24,6 +25,10 @@ namespace Scheduler
                     Console.WriteLine("Okay then");
                 }
             } while (lawyer.GetYesNo("Do you want to add anything else to the tables"));
+            if(lawyer.GetYesNo("Do you want to build the schedule?"))
+            {
+                manager.MakeSchedule();
+            }
             Console.WriteLine("Program end");
             Console.ReadLine();
         }
