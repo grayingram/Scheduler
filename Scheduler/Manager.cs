@@ -16,10 +16,11 @@ namespace Scheduler
             int month = Lawyer.GetMonth("What month of the year: " + year + " do you want to make the schedule for?");
             DateTime date = new DateTime(year, month, 1);
             List<Employee> employees = Reader.ReadEmployees();
-            foreach(Employee employee in employees)
-            {
-                Console.Write(employee.LastName + ": ");
-            }
+            //foreach(Employee employee in employees)
+            //{
+            //    Console.Write(employee.LastName + ": ");
+            //}
+            bool fact = false;
             for(int i = 0; i < DateTime.DaysInMonth(year, month); i++)
             {
                 if(i > 0)
@@ -37,20 +38,21 @@ namespace Scheduler
                 
                 foreach(Employee employee in employees)
                 {
-                    if(workable.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 || sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0))
-                    {
-                        scheduled.Add(employee);
-                    }
-                    else if (workablelate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 || sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0))
+                    if (workablelate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0))
                     {
                         scheduledlate.Add(employee);
                     }
+                    else if (workable.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0))
+                    {
+                        scheduled.Add(employee);
+                    }
+                    
 
                 }
                 foreach (Employee employee in employees)
                 {
                      
-                    //Console.Write(employee.LastName + ": ");
+                    Console.Write(employee.LastName + ": ");
                     if (vacationing.Where(x => x.FirstName==employee.FirstName && x.LastName==employee.LastName).Count() > 0)
                     {
                         Console.Write("V");
@@ -63,10 +65,15 @@ namespace Scheduler
                     {
                         Console.Write("S");
                     }
-                    else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee))
+                    else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee) && !fact)
                     {
                         Console.Write("C");
                         Updater.UpdateWorkedLateDays(1, Reader.GetEmployeeId(employee));
+                        fact = !fact;
+                    }
+                    else if(scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
+                    {
+                        Console.Write("R");
                     }
                     else if(scheduled.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                     {
@@ -75,6 +82,7 @@ namespace Scheduler
                     Console.ReadLine();
                 }
                 date = date.AddDays(1.00);
+                fact = !fact;
                 if(date.DayOfWeek.ToString().ToLower() == "saturday")
                 {
                     foreach(Employee employee in employees)

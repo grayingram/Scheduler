@@ -65,7 +65,7 @@ namespace Scheduler
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "Update workedlate SET WorkedLateForWeek=@fact WHERE employeeid=@employeeid;";
                 cmd.Parameters.AddWithValue("fact", fact);
-                cmd.Parameters.AddWithValue("employeid", employeeid);
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -77,7 +77,7 @@ namespace Scheduler
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "Update workedlate SET WorkedLateForWeek= 0 WHERE employeeid=@employeeid;";
-                cmd.Parameters.AddWithValue("employeid", employeeid);
+                cmd.Parameters.AddWithValue("employeeid", employeeid);
                 cmd.ExecuteNonQuery();
             }
         }
