@@ -710,6 +710,33 @@ namespace Scheduler
                 }
             }
         }
+        public bool DoesScheduledMonthExist(int month, int year)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(ScheduledID) AS result FROM scheduled sd WHERE Month = @month AND Year=@year;";
+                cmd.Parameters.AddWithValue("month", month);
+                cmd.Parameters.AddWithValue("year", year);
+
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int count = int.Parse(dr[0].ToString());
+                if (count == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public bool HasWorkedLate(Employee employee)
         {

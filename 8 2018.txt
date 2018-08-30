@@ -1,64 +1,64 @@
 8 2018
       Ingram Grills Oliver Perkins Harrelson Thaggard Perkins Hunn Clabough Green Orazine Gravelle Herndon Lyle Morgan Pless Henley Mcintyre Runyans Strickland 
 W
-1    V        C        O        R         O           R          R         R      R          R       R         V          R         O      O        R       N_A      N_A        R         R         
+1   V      C      O      R      O       R       R      R     R       R     R      V       R      O     O      R     N_A     N_A      R      R     
 Th
-2    V         R         O         C          R            R           R          R       R           O        R          O           R          S       O         O        R         N_A         R          N_A       
+2    V       R       O       C       R        R        R       R      R        O      R       O        R       S      O       O      R       N_A       R       N_A    
 F
-3    V        R        C        R         V           R          R         R      R          O       R         R          R         S      O        O       R        N_A        R         N_A       
+3   V      R      C      R      V       R       R      R     R       O     R      R       R      S     O      O     R      N_A      R      N_A    
 S
-4    V        N_A      N_A      N_A       V           N_A        N_A       N_A    N_A        N_A     N_A       N_A        N_A       N_A    N_A      O       N_A      N_A        N_A       N_A       
+4   V      N_A     N_A     N_A     V       N_A      N_A     N_A    N_A      N_A    N_A     N_A      N_A     N_A    N_A     O     N_A     N_A      N_A     N_A    
 S
-5    V        N_A      N_A      N_A       V           N_A        N_A       N_A    N_A        N_A     N_A       N_A        N_A       N_A    N_A      O       N_A      N_A        N_A       N_A       
+5   V      N_A     N_A     N_A     V       N_A      N_A     N_A    N_A      N_A    N_A     N_A      N_A     N_A    N_A     O     N_A     N_A      N_A     N_A    
 M
-6    V        C        R        R         V           R          R         O      R          V       R         R          O         O      R        O       R        N_A        R         R         
+6   V      C      R      R      V       R       R      O     R       V     R      R       O      O     R      O     R      N_A      R      R     
 T
-7    V        R        R        C         V           R          R         V      R          V       R         R          O         S      R        R       N_A      N_A        N_A       R         
+7   V      R      R      C      V       R       R      V     R       V     R      R       O      S     R      R     N_A     N_A      N_A     R     
 W
-8    C        R        O        R         O           R          R         V      R          V       R         O          V         O      O        R       N_A      N_A        R         R         
+8   C      R      O      R      O       R       R      V     R       V     R      O       V      O     O      R     N_A     N_A      R      R     
 Th
-9    R         R         R         R          V            C           R          V       R           O        R          V           V          S       O         O        R         N_A         R          N_A       
+9    R       R       R       R       V        C        R       V      R        O      R       V        V       S      O       O      R       N_A       R       N_A    
 F
-10     R         R         O         R          V            R           C          V       R           O        R          O           V          S       O         O        R         N_A         R          N_A       
+10     R       R       O       R       V        R        C       V      R        O      R       O        V       S      O       O      R       N_A       R       N_A    
 S
-11     N_A       N_A       O         N_A        V            N_A         N_A        N_A     N_A         N_A      N_A        N_A         N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+11     N_A      N_A      O       N_A      V        N_A       N_A      N_A     N_A       N_A     N_A      N_A       N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 S
-12     N_A       N_A       O         N_A        V            N_A         N_A        N_A     N_A         N_A      N_A        N_A         N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+12     N_A      N_A      O       N_A      V        N_A       N_A      N_A     N_A       N_A     N_A      N_A       N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 M
-13     C         R         O         R          V            R           V          O       R           V        R          R           O          O       R         O        R         N_A         R          R         
+13     C       R       O       R       V        R        V       O      R        V      R       R        O       O      R       O      R       N_A       R       R     
 T
-14     R         C         R         R          V            R           V          V       R           V        R          R           O          R       R         R        N_A       N_A         N_A        R         
+14     R       C       R       R       V        R        V       V      R        V      R       R        O       R      R       R      N_A      N_A       N_A      R     
 W
-15     R         R         C         R          N_A          R           V          V       R           R        R          R           R          O       O         R        N_A       N_A         R          R         
+15     R       R       C       R       N_A       R        V       V      R        R      R       R        R       O      O       R      N_A      N_A       R       R     
 Th
-16      R          R          O          C           R             R            V           V        R            O         R           O            R           S        O          O         R          N_A          R           N_A       
+16     R        R        O        C        R         R         V        V       R         O       R        O         R        S       O        O       R        N_A        R        N_A    
 F
-17     R         R         R         R          C            R           V          V       R           O        R          O           R          S       O         O        R         N_A         R          N_A       
+17     R       R       R       R       C        R        V       V      R        O      R       O        R       S      O       O      R       N_A       R       N_A    
 S
-18     N_A       N_A       N_A       N_A        N_A          N_A         V          N_A     N_A         N_A      N_A        O           N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+18     N_A      N_A      N_A      N_A      N_A       N_A       V       N_A     N_A       N_A     N_A      O        N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 S
-19     N_A       N_A       N_A       N_A        N_A          N_A         V          N_A     N_A         N_A      N_A        O           N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+19     N_A      N_A      N_A      N_A      N_A       N_A       V       N_A     N_A       N_A     N_A      O        N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 M
-20     C         R         R         R          R            R           V          O       R           R        R          O           O          O       R         O        R         N_A         R          R         
+20     C       R       R       R       R        R        V       O      R        R      R       O        O       O      R       O      R       N_A       R       R     
 T
-21     R         C         R         R          R            R           V          R       R           R        V          R           O          S       O         R        N_A       N_A         N_A        R         
+21     R       C       R       R       R        R        V       R      R        R      V       R        O       S      O       R      N_A      N_A       N_A      R     
 W
-22     R         R         O         C          O            R           V          R       R           R        V          R           R          O       O         R        N_A       N_A         R          R         
+22     R       R       O       C       O        R        V       R      R        R      V       R        R       O      O       R      N_A      N_A       R       R     
 Th
-23      R          R          R          R           C             R            V           R        R            O         R           O            R           S        R          O         R          N_A          R           N_A       
+23     R        R        R        R        C         R         V        R       R         O       R        O         R        S       R        O       R        N_A        R        N_A    
 F
-24     R         R         O         R          R            C           V          R       R           O        R          R           R          S       O         O        R         N_A         R          N_A       
+24     R       R       O       R       R        C        V       R      R        O      R       R        R       S      O       O      R       N_A       R       N_A    
 S
-25     N_A       N_A       O         N_A        N_A          N_A         N_A        N_A     N_A         N_A      N_A        N_A         N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+25     N_A      N_A      O       N_A      N_A       N_A       N_A      N_A     N_A       N_A     N_A      N_A       N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 S
-26     N_A       N_A       O         N_A        N_A          N_A         N_A        N_A     N_A         N_A      N_A        N_A         N_A        N_A     N_A       O        N_A       N_A         N_A        N_A       
+26     N_A      N_A      O       N_A      N_A       N_A       N_A      N_A     N_A       N_A     N_A      N_A       N_A      N_A     N_A      O      N_A      N_A       N_A      N_A    
 M
-27     C         V         O         R          R            R           R          O       R           R        R          R           O          O       R         O        R         N_A         R          R         
+27     C       V       O       R       R        R        R       O      R        R      R       R        O       O      R       O      R       N_A       R       R     
 T
-28     R         V         R         C          R            R           R          R       R           R        R          R           O          S       O         R        N_A       N_A         N_A        R         
+28     R       V       R       C       R        R        R       R      R        R      R       R        O       S      O       R      N_A      N_A       N_A      R     
 W
-29     R         V         C         R          O            R           R          R       R           R        R          R           R          O       O         R        N_A       N_A         R          R         
+29     R       V       C       R       O        R        R       R      R        R      R       R        R       O      O       R      N_A      N_A       R       R     
 Th
-30      R          V          O          R           C             R            R           R        R            O         R           O            R           S        R          O         R          N_A          R           N_A       
+30     R        V        O        R        C         R         R        R       R         O       R        O         R        S       R        O       R        N_A        R        N_A    
 F
-31     R         V         R         R          R            C           R          R       R           O        R          O           R          S       O         O        R         N_A         R          N_A       
+31     R       V       R       R       R        C        R       R      R        O      R       O        R       S      O       O      R       N_A       R       N_A    

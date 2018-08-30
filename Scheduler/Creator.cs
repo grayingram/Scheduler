@@ -112,5 +112,20 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+        public void AddScheduledMonth(int month, int year)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO scheduled (Month, Year) VALUES(@month, @year);";
+                cmd.Parameters.AddWithValue("month", month);
+                cmd.Parameters.AddWithValue("year", year);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
