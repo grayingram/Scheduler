@@ -240,7 +240,7 @@ namespace Scheduler
                         }
                     }
                 }
-                file.Write(employeesNamesKey);
+                file.WriteLine(employeesNamesKey);
                 file.WriteLine(employeesName);
                 file.WriteLine();
                 foreach (string dayofmonth in daysOfMonth)
