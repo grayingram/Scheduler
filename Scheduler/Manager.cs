@@ -17,22 +17,39 @@ namespace Scheduler
             int month = Lawyer.GetMonth("What month of the year: " + year + " do you want to make the schedule for?");
             DateTime date = new DateTime(year, month, 1);
             string filename = date.Month.ToString() + " " + year.ToString();
+            
             using (StreamWriter file = new StreamWriter(@"C:\Users\al_in\source\repos\Scheduler\" + filename+".txt")) {
                 List<Employee> employees = Reader.ReadEmployees();
+                file.WriteLine(filename);
+                string employeesNames = "   ";
                 foreach (Employee employee in employees)
                 {
                     Console.WriteLine(employee.LastName + ": ");
-                    file.WriteLine(employee.LastName + ": ");
+                    //file.WriteLine(employee.LastName + ": ");
+                    employeesNames += employee.LastName+ " ";
+
                 }
+                Console.ReadLine();
+                Console.Clear();
                 bool fact = false;
+                List<string> daysOfMonth = new List<string>();
                 for (int i = 0; i < DateTime.DaysInMonth(year, month); i++)
                 {
+                    string dayofMonth = "";
                     if (i > 0)
                     {
                         Console.Clear();
                     }
                     Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
-                    file.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
+                    //file.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
+                    if(int.Parse(date.Day.ToString()) > 9)
+                    {
+                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + "  ";
+                    }
+                    else
+                    {
+                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + " ";
+                    }
                     List<Employee> workable = Reader.GetWorkableEmployees(date);
                     List<Employee> vacationing = Reader.GetVacationingEmployees(date);
                     List<Employee> off = Reader.GetOffEmployees(date);
@@ -56,42 +73,62 @@ namespace Scheduler
                     }
                     foreach (Employee employee in employees)
                     {
-
+                        string symbol = "";
                         //Console.Write(employee.LastName + ": ");
                         if (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("V");
-                            file.Write("V");
+                            Console.Write("V\n");
+                            symbol = "V";
+                            dayofMonth += "V" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("V");
                         }
                         else if (off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("O");
-                            file.Write("O");
+                            Console.Write("O\n");
+                            symbol = "O";
+                            dayofMonth += "O" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("O");
                         }
                         else if (sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("S");
-                            file.Write("S");
+                            Console.Write("S\n");
+                            symbol = "S";
+                            dayofMonth += "S" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("S");
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee) && !fact)
                         {
-                            Console.Write("C");
-                            file.Write("C");
+                            Console.Write("C\n");
+                            symbol = "C";
+                            dayofMonth += "C" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("C");
                             Updater.UpdateWorkedLateDays(1, Reader.GetEmployeeId(employee));
                             fact = !fact;
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("R");
-                            file.Write("R");
+                            Console.Write("R\n");
+                            symbol = "R";
+                            dayofMonth += "R" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("R");
                         }
                         else if (scheduled.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("R");
-                            file.Write("R");
+                            Console.Write("R\n");
+                            symbol = "R"; 
+                            dayofMonth += "R" + LastNameSpacing(employee.LastName, symbol);
+                            //file.Write("R");
                         }
-                        Console.ReadLine();
+                        else
+                        {
+                            Console.Write("N_A\n");
+                            symbol = "N_A";
+                            dayofMonth += "N_A" + LastNameSpacing(employee.LastName, symbol);
+                        }
+                        
                     }
+                    Console.ReadLine();
+                    daysOfMonth.Add(dayofMonth);
                     date = date.AddDays(1.00);
                     fact = !fact;
                     if (date.DayOfWeek.ToString().ToLower() == "saturday")
@@ -101,6 +138,12 @@ namespace Scheduler
                             Updater.UpdateWorkedLateDays(Reader.GetEmployeeId(employee));
                         }
                     }
+                }
+                file.Write(employeesNames);
+                file.WriteLine();
+                foreach(string dayofmonth in daysOfMonth)
+                {
+                    file.WriteLine(dayofmonth);
                 }
             }
         }
@@ -128,6 +171,15 @@ namespace Scheduler
                 return "F";
             }
             return "S";
+        }
+        private string LastNameSpacing(string lastname,string symbol)
+        {
+            string spacing = "";
+            for(int i = 0; i < lastname.Length - symbol.Length; i++)
+            {
+                spacing += " ";
+            }
+            return spacing;
         }
 
     }
