@@ -86,10 +86,8 @@ namespace Scheduler
                 string employeesNames = "      ";
                 foreach (Employee employee in employees)
                 {
-                    Console.WriteLine(employee.LastName + ": ");
-                    //file.WriteLine(employee.LastName + ": ");
+                    //Console.WriteLine(employee.LastName + ": ");
                     employeesNames += employee.LastName + " ";
-
                 }
                 Console.ReadLine();
                 Console.Clear();
@@ -100,10 +98,9 @@ namespace Scheduler
                     string dayofMonth = "";
                     if (i > 0)
                     {
-                        Console.Clear();
+                        //Console.Clear();
                     }
-                    Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
-                    //file.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
+                    //Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
                     if (int.Parse(date.Day.ToString()) > 9 && date.DayOfWeek.ToString().ToLower() != "thursday")
                     {
                         dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + " ";
@@ -140,57 +137,51 @@ namespace Scheduler
                         //Console.Write(employee.LastName + ": ");
                         if (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("V\n");
+                            //Console.Write("Vacation\n");
                             symbol = "V";
                             dayofMonth += "V" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("V");
                         }
                         else if (off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("O\n");
+                            //Console.Write("Off\n");
                             symbol = "O";
                             dayofMonth += "O" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("O");
                         }
                         else if (sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("S\n");
+                            //Console.Write("Sick\n");
                             symbol = "S";
                             dayofMonth += "S" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("S");
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee) && !fact)
                         {
-                            Console.Write("C\n");
+                            //Console.Write("Closing\n");
                             symbol = "C";
                             dayofMonth += "C" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("C");
                             Updater.UpdateWorkedLateDays(1, Reader.GetEmployeeId(employee));
                             fact = !fact;
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("R\n");
+                            //Console.Write("Working\n");
                             symbol = "R";
                             dayofMonth += "R" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("R");
                         }
                         else if (scheduled.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
-                            Console.Write("R\n");
+                            //Console.Write("Working\n");
                             symbol = "R";
                             dayofMonth += "R" + LastNameSpacing(employee.LastName, symbol);
-                            //file.Write("R");
                         }
                         else
                         {
-                            Console.Write("N_A\n");
+                            //Console.Write("NotApplicable\n");
                             symbol = "N_A";
                             dayofMonth += "N_A" + LastNameSpacing(employee.LastName, symbol);
                         }
 
                     }
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     daysOfMonth.Add(dayofMonth);
                     date = date.AddDays(1.00);
                     fact = !fact;
