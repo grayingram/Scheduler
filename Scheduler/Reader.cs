@@ -35,7 +35,7 @@ namespace Scheduler
             }
         }
 
-        public int GetEmployeeId(string firstname, string lastname)
+       public int GetEmployeeId(string firstname, string lastname)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
