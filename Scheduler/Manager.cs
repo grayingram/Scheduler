@@ -200,7 +200,7 @@ namespace Scheduler
                             Console.Write("Closing\n");
                             symbol = "C";
                             dayofMonth += "C" + LastNameSpacing(employee.LastName, symbol);
-                            Updater.UpdateWorkedLateDays(1, Reader.GetEmployeeId(employee));
+                            Updater.UpdateWorkedLateDays(1, employee.ID);
                             fact = !fact;
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
@@ -231,7 +231,7 @@ namespace Scheduler
                     {
                         foreach (Employee employee in employees)
                         {
-                            Updater.UpdateWorkedLateDays(Reader.GetEmployeeId(employee));
+                            Updater.UpdateWorkedLateDays(employee.ID);
                         }
                     }
                 }

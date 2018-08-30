@@ -8,11 +8,13 @@ namespace Scheduler
     {
         public string FirstName { get;private set; }
         public string LastName { get;private set; }
+        public int ID { get; private set; }
 
-        public Employee(string firstname, string lastname)
+        public Employee(string firstname, string lastname, int id)
         {
             FirstName = firstname;
             LastName = lastname;
+            ID = id;
         }
         public Employee()
         {

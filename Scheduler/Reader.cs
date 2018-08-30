@@ -28,7 +28,7 @@ namespace Scheduler
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                     employees.Add(employee);
                 }
                 return employees;
@@ -54,7 +54,7 @@ namespace Scheduler
                 return employeeid;
             }
         }
-        public int GetEmployeeId(Employee employee)
+        /*public int GetEmployeeId(Employee employee)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
 
@@ -72,7 +72,7 @@ namespace Scheduler
                 int employeeid = int.Parse(dr[0].ToString());
                 return employeeid;
             }
-        }
+        }*/
         public int GetNumberOfVacations(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -258,7 +258,7 @@ namespace Scheduler
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                     if (!employees.Contains(employee))
                     {
                         employees.Add(employee);
@@ -282,7 +282,7 @@ namespace Scheduler
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                     employees.Add(employee);
                 }
                 return employees;
@@ -302,7 +302,7 @@ namespace Scheduler
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                    Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                     employees.Add(employee);
                 }
                 return employees;
@@ -369,7 +369,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -390,7 +390,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -410,7 +410,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -430,7 +430,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -450,7 +450,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -474,7 +474,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -495,7 +495,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -515,7 +515,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -535,7 +535,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -555,7 +555,7 @@ namespace Scheduler
                     MySqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString());
+                        Employee employee = new Employee((dr["FirstName"].ToString()), dr["LastName"].ToString(), int.Parse(dr["EmployeeId"].ToString()));
                         employees.Add(employee);
                     }
                     return employees;
@@ -750,14 +750,14 @@ namespace Scheduler
         public bool HasWorkedLate(Employee employee)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-            int employeeid = GetEmployeeId(employee);
+            
             using (conn)
             {
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT Count(w.employeeId) AS result FROM workedlate w WHERE employeeID = @employeeId AND WorkedLateForWeek = 1;";
-                cmd.Parameters.AddWithValue("employeeId", employeeid);
+                cmd.Parameters.AddWithValue("employeeId", employee.ID);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
