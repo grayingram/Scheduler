@@ -9,19 +9,24 @@ namespace Scheduler
     {
         private Lawyer Lawyer { get; set; } = new Lawyer();
         private Reader Reader { get; set; } = new Reader();
+        private Updater Updater { get; set; } = new Updater();
         public void MakeSchedule()
         {
             int year = Lawyer.GetYear("What year is this schedule being made?");
             int month = Lawyer.GetMonth("What month of the year: " + year + " do you want to make the schedule for?");
             DateTime date = new DateTime(year, month, 1);
             List<Employee> employees = Reader.ReadEmployees();
+            foreach(Employee employee in employees)
+            {
+                Console.Write(employee.LastName + ": ");
+            }
             for(int i = 0; i < DateTime.DaysInMonth(year, month); i++)
             {
                 if(i > 0)
                 {
                     Console.Clear();
                 }
-                Console.WriteLine(date.DayOfWeek.ToString() + " " + date.Day.ToString());
+                Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n " + date.Day.ToString());
                 List<Employee> workable = Reader.GetWorkableEmployees(date);
                 List<Employee> vacationing = Reader.GetVacationingEmployees(date);
                 List<Employee> off = Reader.GetOffEmployees(date);
@@ -29,7 +34,7 @@ namespace Scheduler
                 List<Employee> workablelate = Reader.GetWorkableLateEmployees(date);
                 List<Employee> scheduled = new List<Employee>();
                 List<Employee> scheduledlate = new List<Employee>();
-                bool fact = false;
+                
                 foreach(Employee employee in employees)
                 {
                     if(workable.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() == 0 || off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 || sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0))
@@ -45,7 +50,7 @@ namespace Scheduler
                 foreach (Employee employee in employees)
                 {
                      
-                    Console.Write(employee.LastName + ": ");
+                    //Console.Write(employee.LastName + ": ");
                     if (vacationing.Where(x => x.FirstName==employee.FirstName && x.LastName==employee.LastName).Count() > 0)
                     {
                         Console.Write("V");
@@ -58,19 +63,51 @@ namespace Scheduler
                     {
                         Console.Write("S");
                     }
+                    else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee))
+                    {
+                        Console.Write("C");
+                        Updater.UpdateWorkedLateDays(1, Reader.GetEmployeeId(employee));
+                    }
                     else if(scheduled.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                     {
                         Console.Write("R");
                     }
-                    else if(scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !fact)
-                    {
-                        Console.Write("C");
-                        fact = !fact;
-                    }
                     Console.ReadLine();
                 }
                 date = date.AddDays(1.00);
+                if(date.DayOfWeek.ToString().ToLower() == "saturday")
+                {
+                    foreach(Employee employee in employees)
+                    {
+                        Updater.UpdateWorkedLateDays(Reader.GetEmployeeId(employee));
+                    }
+                }
             }
+        }
+
+        private string FormatDay(string day)
+        {
+            if(day.ToLower() == "monday")
+            {
+                return "M";
+            }
+            else if (day.ToLower()=="tuesday")
+            {
+                return "T";
+            }
+            else if (day.ToLower() == "wednesday")
+            {
+                return "W";
+            }
+            else if (day.ToLower() == "thursday")
+            {
+                return "Th";
+            }
+            else if (day.ToLower() == "friday")
+            {
+                return "F";
+            }
+            return "S";
         }
 
     }

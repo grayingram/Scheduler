@@ -711,6 +711,32 @@ namespace Scheduler
             }
         }
 
+        public bool HasWorkedLate(Employee employee)
+        {
+            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
+            int employeeid = GetEmployeeId(employee);
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Count(w.employeeId) AS result FROM workedlate w WHERE employeeID = @employeeId AND WorkedLateForWeek = 1;";
+                cmd.Parameters.AddWithValue("employeeId", employeeid);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int count = int.Parse(dr[0].ToString());
+                if (count == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool DoesVacationExist(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
