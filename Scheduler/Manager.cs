@@ -21,7 +21,7 @@ namespace Scheduler
             using (StreamWriter file = new StreamWriter(@"C:\Users\al_in\source\repos\Scheduler\" + filename+".txt")) {
                 List<Employee> employees = Reader.ReadEmployees();
                 file.WriteLine(filename);
-                string employeesNames = "   ";
+                string employeesNames = "      ";
                 foreach (Employee employee in employees)
                 {
                     Console.WriteLine(employee.LastName + ": ");
@@ -42,13 +42,13 @@ namespace Scheduler
                     }
                     Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
                     //file.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
-                    if(int.Parse(date.Day.ToString()) > 9)
+                    if(int.Parse(date.Day.ToString()) > 9 || date.DayOfWeek.ToString().ToLower()!="thursday")
                     {
-                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + "  ";
+                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + " ";
                     }
                     else
                     {
-                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + " ";
+                        dayofMonth += FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString() + "";
                     }
                     List<Employee> workable = Reader.GetWorkableEmployees(date);
                     List<Employee> vacationing = Reader.GetVacationingEmployees(date);
@@ -74,6 +74,7 @@ namespace Scheduler
                     foreach (Employee employee in employees)
                     {
                         string symbol = "";
+                        dayofMonth += FormatSpacing(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
                         //Console.Write(employee.LastName + ": ");
                         if (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
@@ -176,6 +177,15 @@ namespace Scheduler
         {
             string spacing = "";
             for(int i = 0; i < lastname.Length - symbol.Length; i++)
+            {
+                spacing += " ";
+            }
+            return spacing;
+        }
+        private string FormatSpacing(string word)
+        {
+            string spacing = "";
+            for(int i = 0; i < word.Length; i++)
             {
                 spacing += " ";
             }
