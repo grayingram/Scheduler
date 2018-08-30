@@ -17,10 +17,10 @@ namespace Scheduler
             int year = Lawyer.GetYear("What year is this schedule being made?");
             int month = Lawyer.GetMonth("What month of the year: " + year + " do you want to make the schedule for?");
             DateTime date = new DateTime(year, month, 1);
-            string filename = date.Month.ToString() + " " + year.ToString();
+            string filename = FormatMonth(date.Month.ToString()) + " " + year.ToString();
             if(Reader.DoesScheduledMonthExist(month, year))
             {
-                if(Lawyer.GetYesNo("Do you want to override the current schedule?"))
+                if(Lawyer.GetYesNo("Do you want to override the current schedule of " +FormatMonth(date.Month.ToString()) +" " + year.ToString() +"?"))
                 {
                     WriteFile(date, filename);
                 }
@@ -58,6 +58,47 @@ namespace Scheduler
             }
             return "S";
         }
+        private string FormatMonth(string month)
+        {
+            switch (month)
+            {
+                case ("1"):
+                    {
+                        return ("January");
+                    }
+                case ("2"):
+                    return ("Febuary");
+
+                case ("3"):
+                    return ("March");
+                //break;
+                case ("4"):
+                    return ("April");
+                //break;
+                case ("5"):
+                    return ("May");
+                //break;
+                case ("6"):
+                    return ("June");
+                //break;
+                case ("7"):
+                    return ("July");
+                // break;
+                case ("8"):
+                    return ("August");
+                //break;
+                case ("9"):
+                    return ("September");
+                //break;
+                case ("10"):
+                    return ("October");
+                //break;
+                case ("11"):
+                    return ("November");
+                default:
+                    return ("December");
+            }
+        }
         private string LastNameSpacing(string lastname,string symbol)
         {
             string spacing = "";
@@ -79,6 +120,7 @@ namespace Scheduler
 
         private void WriteFile(DateTime date, string filename)
         {
+            Console.WriteLine(filename);
             using (StreamWriter file = new StreamWriter(@"C:\Users\al_in\source\repos\Scheduler\" + filename + ".txt"))
             {
                 List<Employee> employees = Reader.ReadEmployees();

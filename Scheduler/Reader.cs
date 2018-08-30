@@ -724,6 +724,7 @@ namespace Scheduler
                 cmd.Parameters.AddWithValue("year", year);
 
 
+
                 MySqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
                 int count = int.Parse(dr[0].ToString());
@@ -736,6 +737,14 @@ namespace Scheduler
                     return false;
                 }
             }
+        }
+        public bool EnoughInfo(DateTime date)
+        {
+            if(GetNumberOfOffEmployees(date) + GetNumberOfSickEmployees(date) + GetNumberOfVacaEmployees(date) > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool HasWorkedLate(Employee employee)
