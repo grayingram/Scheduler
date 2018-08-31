@@ -6,7 +6,11 @@ namespace Scheduler
 {
     class Lawyer
     {
-        
+        /// <summary>
+        /// Given a question makes sure the input is not null or empty
+        /// </summary>
+        /// <param name="question">question to be asked</param>
+        /// <returns>response to a given question</returns>
         public string GetResponse(string question)
             {
                 Console.WriteLine(question);
@@ -19,6 +23,12 @@ namespace Scheduler
                 Console.Clear();
                 return response;
             }
+
+        /// <summary>
+        /// Given a question makes sure the input of the given question is an integer
+        /// </summary>
+        /// <param name="question">question to be asked</param>
+        /// <returns>a positive integer value</returns>
         public int GetInt(string question)
             {
                 string response = GetResponse(question);
@@ -32,8 +42,16 @@ namespace Scheduler
                 Console.Clear();
                 return userInput;
             }
-        public int NotNeg(int num, string answer, string query)
-            {
+
+        /// <summary>
+        /// Used to make sure integers are not negative
+        /// </summary>
+        /// <param name="num">integer num to be checked if positive</param>
+        /// <param name="answer">not used</param>
+        /// <param name="query">the question that is being asked</param>
+        /// <returns></returns>
+        private int NotNeg(int num, string answer, string query)
+        {
 
                 int userInput = 0;
 
@@ -45,8 +63,15 @@ namespace Scheduler
                 userInput = num;
                 Console.Clear();
                 return userInput;
-            }
-        public int NotNeg(int num, string query)
+        }
+
+        /// <summary>
+        /// Used to make sure integers are not negative
+        /// </summary>
+        /// <param name="num">integer number to be checked if positive</param>
+        /// <param name="query">the question that is being asked</param>
+        /// <returns></returns>
+        private int NotNeg(int num, string query)
             {
                 int userInput = 0;
 
@@ -58,7 +83,15 @@ namespace Scheduler
                 userInput = num;
                 return userInput;
             }
-        public decimal NotNeg(decimal num, string answer, string query)
+
+        /// <summary>
+        /// Used to make sure decimals are not negative
+        /// </summary>
+        /// <param name="num">decimal number to be checked if positive</param>
+        /// <param name="answer">not used</param>
+        /// <param name="query">the question that is be checked</param>
+        /// <returns></returns>
+        private decimal NotNeg(decimal num, string answer, string query)
             {
                 decimal userInput = 0;
 
@@ -70,6 +103,12 @@ namespace Scheduler
                 userInput = Math.Round(num, 2);
                 return userInput;
             }
+
+        /// <summary>
+        /// Given a question makes sure the input is decimal of the given question
+        /// </summary>
+        /// <param name="question">question to be asked</param>
+        /// <returns>positive decimal value</returns>
         public decimal GetDecimal(string question)
             {
                 string response = GetResponse(question);
@@ -84,6 +123,12 @@ namespace Scheduler
 
                 return userInput;
             }
+
+        /// <summary>
+        /// Given a question asks a requires yes/no answer
+        /// </summary>
+        /// <param name="question">question to be asked</param>
+        /// <returns>true or false value</returns>
         public bool GetYesNo(string question)
             {
                 string response = GetResponse(question);
@@ -105,6 +150,7 @@ namespace Scheduler
                 }
                 return false;
             }
+
         public IEnumerable<string> GetList(string question, int limit)
             {
                 string response = GetResponse(question);
@@ -112,6 +158,12 @@ namespace Scheduler
                 List<string> bob = new List<string>();
                 return bob;
             }
+
+        /// <summary>
+        /// Given a question makes sure the integer value is a valid month
+        /// </summary>
+        /// <param name="question"></param>
+        /// <returns>the integer value of a month</returns>
         public int GetMonth(string question)
             {
                 int userInput = GetInt(question);
@@ -126,6 +178,14 @@ namespace Scheduler
 
 
             }
+
+        /// <summary>
+        /// Given a question,year, and month validates the day as a valid day
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="month">month of the year to check</param>
+        /// <param name="year">year to check</param>
+        /// <returns>integer value of the day</returns>
         public int GetDay(string question, int month, int year)
             {
                 int userInput = GetInt(question);
@@ -173,13 +233,19 @@ namespace Scheduler
                 Console.Clear();
                 return userInput;
             }
+
+        /// <summary>
+        /// Given a question makes sure the ingeter value is equal or greater than the current year
+        /// </summary>
+        /// <param name="question">question to be asked</param>
+        /// <returns>integer value of the year</returns>
         public int GetYear(string question)
         {
             int userInput = GetInt(question);
             DateTime current = DateTime.Now;
             if (!(userInput >= current.Year))
             {
-                Console.WriteLine("The year is not a valid year, try again.");
+                Console.WriteLine("The year is a past year, try again.");
                 userInput = GetInt(question);
             }
             Console.Clear();
