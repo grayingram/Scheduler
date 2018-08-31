@@ -34,6 +34,11 @@ namespace Scheduler
             Console.WriteLine("Program end");
             Console.ReadLine();
         }
+        /// <summary>
+        /// through multiple yes no questions to call the creator to create records
+        /// </summary>
+        /// <param name="schedule">schedule object to be used to call the schedule methods</param>
+        /// <param name="lawyer">lawyer object to be used to call lawyer methods for user interaction</param>
         public static void Create(Schedule schedule, Lawyer lawyer)
         {
             do
@@ -45,7 +50,7 @@ namespace Scheduler
                 else if (lawyer.GetYesNo("Do you want to add vacation days for an employee?"))
                 {
                     Employee employee = GetEmployee(lawyer);
-                    schedule.AddVacation();
+                    schedule.AddVacation(employee);
                 }
                 else if (lawyer.GetYesNo("Do you want to add off days for an employee?"))
                 {
@@ -55,7 +60,7 @@ namespace Scheduler
                 else if (lawyer.GetYesNo("Do you want to add sick days for an employee?"))
                 {
                     Employee employee = GetEmployee(lawyer);
-                    schedule.AddSickDay();
+                    schedule.AddSickDay(employee);
                 }
                 else if (lawyer.GetYesNo("Do you want to set workable days for an employee?"))
                 {
@@ -67,6 +72,12 @@ namespace Scheduler
                 }
             } while (lawyer.GetYesNo("Do you want to add more records?"));
         }
+
+        /// <summary>
+        /// through multiple yes no questions to call the updater methods to updater records
+        /// </summary>
+        /// <param name="schedule">schedule object to be used to call the schedule methods</param>
+        /// <param name="lawyer">lawyer object to be used to call lawyer methods for user interaction</param>
         public static void Update(Schedule schedule, Lawyer lawyer)
         {
             do
@@ -83,15 +94,32 @@ namespace Scheduler
                 }
             } while (lawyer.GetYesNo("Do you want to update any other records?"));
         }
+
+        /// <summary>
+        /// through multiple yes no questions to call the reader methods to read records
+        /// </summary>
+        /// <param name="schedule">schedule object to be used to call the schedule methods</param>
+        /// <param name="lawyer">lawyer object to be used to call lawyer methods for user interaction</param>
         public static void Read(Schedule schedule, Lawyer lawyer)
         {
 
         }
+
+        /// <summary>
+        /// through multiple yes no questions to call the deleter methods to delete records
+        /// </summary>
+        /// <param name="schedule">schedule object to be used to call the schedule methods</param>
+        /// <param name="lawyer">lawyer object to be used to call lawyer methods for user interaction</param>
         public static void Delete(Schedule schedule, Lawyer lawyer)
         {
 
         }
 
+        /// <summary>
+        /// gets an employee to use for scheduling purposes
+        /// </summary>
+        /// <param name="lawyer">takes in a lawyer object to be used</param>
+        /// <returns>an employee through multiple questions</returns>
         private static Employee GetEmployee(Lawyer lawyer)
         {
             if (lawyer.GetYesNo("Do you know the last name of the employee?"))

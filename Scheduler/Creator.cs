@@ -4,12 +4,20 @@ using System.Text;
 using MySql.Data.MySqlClient;
 
 namespace Scheduler
-{
+{/// <summary>
+/// Offers specific methods to add records to a database
+/// </summary>
     class Creator
     {
         Repository Repository = new Repository();
         public Reader reader = new Reader();
-
+        
+        /// <summary>
+        /// Adds an employee record to the database
+        /// </summary>
+        /// <param name="firstname">first name of the employee record to be added</param>
+        /// <param name="lastname">last name of the employee record to be added</param>
+        /// <param name="vacationdays">number of vacations to be assigned to the employee record being added</param>
         public void AddEmployee(string firstname, string lastname, int vacationdays)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -26,6 +34,13 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds an vacation record of the given employee to the database
+        /// </summary>
+        /// <param name="employeeid"></param>
+        /// <param name="start">The start date of the vacation</param>
+        /// <param name="end">The end date of the vacation</param>
         public void AddVacation(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -42,6 +57,16 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds a record of the workable days for a given employee using their id
+        /// </summary>
+        /// <param name="employeeid">employee id of the employee to be added</param>
+        /// <param name="mon">1 or 0 indicating true or false for the day</param>
+        /// <param name="tues">1 or 0 indicating true or false for the day</param>
+        /// <param name="wed">1 or 0 indicating true or false for the day</param>
+        /// <param name="thurs">1 or 0 indicating true or false for the day</param>
+        /// <param name="fri">1 or 0 indicating true or false for the day</param>
         public void AddWorkableDays(int employeeid, int mon, int tues, int wed, int thurs, int fri)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -61,6 +86,16 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds a record of the workable late days for a given employee using their id
+        /// </summary>
+        /// <param name="employeeid">employee id of the employee to be added</param>
+        /// <param name="mon">1 or 0 indicating true or false for the day</param>
+        /// <param name="tues">1 or 0 indicating true or false for the day</param>
+        /// <param name="wed">1 or 0 indicating true or false for the day</param>
+        /// <param name="thurs">1 or 0 indicating true or false for the day</param>
+        /// <param name="fri">1 or 0 indicating true or false for the day</param>
         public void AddWorkableLateDays(int employeeid, int mon, int tues, int wed, int thurs, int fri)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -80,6 +115,13 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds a sick day record of the given employee to the database
+        /// </summary>
+        /// <param name="employeeid"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         public void AddSickDay(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -96,6 +138,13 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds a off day record of the given employee to the database
+        /// </summary>
+        /// <param name="employeeid"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         public void AddOffDay(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -112,6 +161,12 @@ namespace Scheduler
                 cmd.ExecuteNonQuery();
             }
         }
+
+        /// <summary>
+        /// Adds a record of a month of a certain year being scheduled
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
         public void AddScheduledMonth(int month, int year)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);

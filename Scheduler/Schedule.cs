@@ -355,7 +355,6 @@ namespace Scheduler
                 }
             } while (Lawyer.GetYesNo("Do you want to add a vacation for another employee?"));
         }
-        
         public void AddSickDay(Employee employee, int year = 0, int month = 0)
         {
             do
