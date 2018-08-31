@@ -4,6 +4,7 @@ namespace Scheduler
 {
     class Program
     {
+        private static Reader Reader { get; set; } = new Reader();
         static void Main(string[] args)
         {
             Schedule schedule = new Schedule();
@@ -43,14 +44,17 @@ namespace Scheduler
                 }
                 else if (lawyer.GetYesNo("Do you want to add vacation days for an employee?"))
                 {
+                    Employee employee = GetEmployee(lawyer);
                     schedule.AddVacation();
                 }
                 else if (lawyer.GetYesNo("Do you want to add off days for an employee?"))
                 {
-                    schedule.AddOffDay();
+                    Employee employee = GetEmployee(lawyer);
+                    schedule.AddOffDay(employee);
                 }
                 else if (lawyer.GetYesNo("Do you want to add sick days for an employee?"))
                 {
+                    Employee employee = GetEmployee(lawyer);
                     schedule.AddSickDay();
                 }
                 else if (lawyer.GetYesNo("Do you want to set workable days for an employee?"))
@@ -86,6 +90,50 @@ namespace Scheduler
         public static void Delete(Schedule schedule, Lawyer lawyer)
         {
 
+        }
+
+        private static Employee GetEmployee(Lawyer lawyer)
+        {
+            if (lawyer.GetYesNo("Do you know the last name of the employee?"))
+            {
+                string lastname = lawyer.GetResponse("What is the last name of the employee?");
+                while (!(Reader.DoesEmployeeExist(lastname)))
+                {
+                    lastname = lawyer.GetResponse("Sorry no employee under that last name exist.\nWhat is the name of the employee?");
+                }
+                foreach (var employee in Reader.Employees)
+                {
+                    if (employee.LastName == lastname && Reader.GetNumberOfEmployeeWSameName(lastname) == 1)
+                    {
+                        return employee;
+                    }
+                    else if (employee.LastName == lastname)
+                    {
+                        string firstletter = lawyer.GetResponse("Sorry there are two or more employees with that last name.\nWhat is the first letter of the employees name");
+                        if (employee.FirstName[0].ToString() == firstletter)
+                        {
+                            return employee;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Guess you are looking for the other");
+                            continue;
+                        }
+                    }
+                }
+            }
+            foreach (var employee in Reader.Employees)
+            {
+                Console.Write("First Name: " + employee.FirstName + " \nLast Name: " + employee.LastName + " ");
+                if ((lawyer.GetYesNo("Is this the employee you want to use?")))
+                {
+                    return employee;
+                }
+                Console.Clear();
+            }
+
+            Employee bob = new Employee("Bob", "Bob", 10000);
+            return bob;
         }
     }
 }
