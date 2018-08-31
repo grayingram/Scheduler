@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Scheduler
-{
+{/// <summary>
+/// Contains methods to ask questions using the console and make sure they are valid
+/// </summary>
     class Lawyer
-    {
+    {        
         /// <summary>
         /// Given a question makes sure the input is not null or empty
         /// </summary>

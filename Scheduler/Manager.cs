@@ -5,13 +5,16 @@ using System.Linq;
 using System.IO;
 
 namespace Scheduler
-{
+{/// <summary>
+/// Manages existing data into a textfile of a calender month
+/// </summary>
     class Manager
     {
         private Lawyer Lawyer { get; set; } = new Lawyer();
         private Reader Reader { get; set; } = new Reader();
         private Updater Updater { get; set; } = new Updater();
         private Creator Creator { get; set; } = new Creator();
+
         public void MakeSchedule()
         {
             int year = Lawyer.GetYear("What year is this schedule being made?");
@@ -34,6 +37,11 @@ namespace Scheduler
            
         }
 
+        /// <summary>
+        /// Formats the given day of the week to a one or two length string
+        /// </summary>
+        /// <param name="day">the day of the week to be formatted</param>
+        /// <returns>one or two length representation of the given day</returns>
         private string FormatDay(string day)
         {
             if(day.ToLower() == "monday")
@@ -58,6 +66,12 @@ namespace Scheduler
             }
             return "S";
         }
+
+        /// <summary>
+        /// Formats the given month to be formatted correctly
+        /// </summary>
+        /// <param name="month">string of the integer representation of the month</param>
+        /// <returns>the name of the month given the string of the integer value of the month</returns>
         private string FormatMonth(string month)
         {
             switch (month)
@@ -99,10 +113,17 @@ namespace Scheduler
                     return ("December");
             }
         }
+
+        /// <summary>
+        /// Formats a string to be the length of the last name
+        /// </summary>
+        /// <param name="lastname">lastname of the employee to use</param>
+        /// <param name="symbol">as base of how many spaces are needed</param>
+        /// <returns>a string with just spacing</returns>
         private string LastNameSpacing(string lastname,string symbol)
         {
             string spacing = "";
-            for(int i = 0; i < lastname.Length - symbol.Length; i++)
+            for(int i = symbol.Length; i < lastname.Length; i++)
             {
                 spacing += " ";
             }
