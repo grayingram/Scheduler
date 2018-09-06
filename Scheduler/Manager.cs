@@ -46,25 +46,29 @@ namespace Scheduler
         {
             if(day.ToLower() == "monday")
             {
-                return "M";
+                return "Mon";
             }
             else if (day.ToLower()=="tuesday")
             {
-                return "T";
+                return "Tue";
             }
             else if (day.ToLower() == "wednesday")
             {
-                return "W";
+                return "Wed";
             }
             else if (day.ToLower() == "thursday")
             {
-                return "Th";
+                return "Thu";
             }
             else if (day.ToLower() == "friday")
             {
-                return "F";
+                return "Fri";
             }
-            return "S";
+            else if (day.ToLower() == "saturday")
+            {
+                return "Sat";
+            }
+            return "Sun";
         }
 
         /// <summary>
@@ -129,6 +133,12 @@ namespace Scheduler
             }
             return spacing;
         }
+
+        /// <summary>
+        /// Formats spacing to the length of the given string
+        /// </summary>
+        /// <param name="word">word to be used</param>
+        /// <returns>spacing the length of the word given</returns>
         private string FormatSpacing(string word)
         {
             string spacing = "";
@@ -139,6 +149,11 @@ namespace Scheduler
             return spacing;
         }
 
+        /// <summary>
+        /// Writes a text file using the database
+        /// </summary>
+        /// <param name="date">represents the start of the month of a given year</param>
+        /// <param name="filename">the name of the file to write to</param>
         private void WriteFile(DateTime date, string filename)
         {
             Console.WriteLine(filename);
@@ -149,7 +164,6 @@ namespace Scheduler
                 string employeesNamesKey = "Key";
                 foreach (Employee employee in employees)
                 {
-                    //Console.WriteLine(employee.LastName + ": ");
                     employeesNamesKey += employee.LastName + ": " + employee.ID;
                 }
                 string employeesName = "     ";
@@ -157,17 +171,11 @@ namespace Scheduler
                 {
                     employeesName += employee.ID + LastNameSpacing(employee.LastName, employee.ID.ToString());
                 }
-                //Console.ReadLine();
-                //Console.Clear();
                 bool fact = false;
                 List<string> daysOfMonth = new List<string>();
                 for (int i = 0; i < DateTime.DaysInMonth(date.Year, date.Month); i++)
                 {
                     string dayofMonth = "";
-                    if (i > 0)
-                    {
-                        //Console.Clear();
-                    }
                     Console.WriteLine(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
                     if (int.Parse(date.Day.ToString()) > 9 && date.DayOfWeek.ToString().ToLower() != "thursday")
                     {
@@ -200,31 +208,26 @@ namespace Scheduler
                     }
                     foreach (Employee employee in employees)
                     {
-                        //string symbol = "";
-                        dayofMonth += FormatSpacing(FormatDay(date.DayOfWeek.ToString()) + "\n" + date.Day.ToString());
+                        dayofMonth += FormatSpacing(FormatDay(date.DayOfWeek.ToString()) + "" + date.Day.ToString());
                         Console.Write(employee.LastName + ": ");
                         if (vacationing.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
                             Console.Write("Vacation\n");
-                            //symbol = "V";
                             dayofMonth += "V";
                         }
                         else if (off.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
                             Console.Write("Off\n");
-                            //symbol = "O";
                             dayofMonth += "O";
                         }
                         else if (sick.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
                             Console.Write("Sick\n");
-                            //symbol = "S";
                             dayofMonth += "S" ;
                         }
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0 && !Reader.HasWorkedLate(employee) && !fact)
                         {
                             Console.Write("Closing\n");
-                            //symbol = "C";
                             dayofMonth += "C";
                             Updater.UpdateWorkedLateDays(1, employee.ID);
                             fact = !fact;
@@ -232,24 +235,20 @@ namespace Scheduler
                         else if (scheduledlate.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
                             Console.Write("Working\n");
-                            //symbol = "R";
                             dayofMonth += "R";
                         }
                         else if (scheduled.Where(x => x.FirstName == employee.FirstName && x.LastName == employee.LastName).Count() > 0)
                         {
                             Console.Write("Working\n");
-                            //symbol = "R";
                             dayofMonth += "R";
                         }
                         else
                         {
                             Console.Write("NotApplicable\n");
-                            //symbol = "N_A";
                             dayofMonth += "N_A";
                         }
 
                     }
-                    //Console.ReadLine();
                     daysOfMonth.Add(dayofMonth);
                     date = date.AddDays(1.00);
                     fact = !fact;
