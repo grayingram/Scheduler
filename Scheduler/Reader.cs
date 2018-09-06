@@ -4,16 +4,26 @@ using System.Text;
 using MySql.Data.MySqlClient;
 
 namespace Scheduler
-{
+{/// <summary>
+/// Reads data from a company database
+/// </summary>
     class Reader
     {
         Repository Repository = new Repository();
         public List<Employee> Employees { get; private set; }
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Reader()
         {
             Employees = ReadEmployees();
         }
+
+        /// <summary>
+        /// Provides list of employee objects of all existing employees
+        /// </summary>
+        /// <returns>List of existing employees</returns>
         public List<Employee> ReadEmployees()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -35,6 +45,12 @@ namespace Scheduler
             }
         }
 
+       /// <summary>
+       /// Gets the id of the given employee
+       /// </summary>
+       /// <param name="firstname">first name of the employee</param>
+       /// <param name="lastname">last name of the employee</param>
+       /// <returns>the employeeid tied to the last and first name given</returns>
        public int GetEmployeeId(string firstname, string lastname)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -54,25 +70,12 @@ namespace Scheduler
                 return employeeid;
             }
         }
-        /*public int GetEmployeeId(Employee employee)
-        {
-            MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
-
-            using (conn)
-            {
-                conn.Open();
-
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT EmployeeID FROM employees as e WHERE e.FirstName = @firstname AND e.LastName = @lastname;";
-                cmd.Parameters.AddWithValue("firstname", employee.FirstName);
-                cmd.Parameters.AddWithValue("lastname", employee.LastName);
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                int employeeid = int.Parse(dr[0].ToString());
-                return employeeid;
-            }
-        }*/
+       
+        /// <summary>
+        /// Gets the number of vacations remaining for an employee
+        /// </summary>
+        /// <param name="employeeid">id  of the employee whose vacations want</param>
+        /// <returns>number of vacations remaining</returns>
         public int GetNumberOfVacations(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -92,6 +95,10 @@ namespace Scheduler
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>number of employees who can work Monday</returns>
         private int GetNumOfWorkableEmployeesMon()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -109,6 +116,11 @@ namespace Scheduler
                 return employeecount;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>number of employees who can work Tuesday</returns>
         private int GetNumOfWorkableEmployeesTues()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -126,6 +138,11 @@ namespace Scheduler
                 return employeecount;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>number of employees who can work Wednesday</returns>
         private int GetNumOfWorkableEmployeesWed()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -143,6 +160,11 @@ namespace Scheduler
                 return employeecount;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>number of employees who can work Thursday</returns>
         private int GetNumOfWorkableEmployeesThurs()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -160,6 +182,11 @@ namespace Scheduler
                 return employeecount;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>number of employees who can work Friday</returns>
         private int GetNumOfWorkableEmployeesFri()
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -607,6 +634,7 @@ namespace Scheduler
                 }
             }
         }
+
         public bool DoesEmployeeExist(string lastname)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -632,6 +660,7 @@ namespace Scheduler
                 }
             }
         }
+
         public bool DoesEmployeebyIdExist(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -658,6 +687,7 @@ namespace Scheduler
                 }
             }
         }
+
         public bool DoesWorkablebyEIDExist(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -684,6 +714,7 @@ namespace Scheduler
                 }
             }
         }
+
         public bool DoesWorkableLatebyEIDExist(int employeeid)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -710,6 +741,12 @@ namespace Scheduler
                 }
             }
         }
+        /// <summary>
+        /// Checks if a month of a given year schedule already exists
+        /// </summary>
+        /// <param name="month">integer value of month to check</param>
+        /// <param name="year">integer value of year to check</param>
+        /// <returns>true or false</returns>
         public bool DoesScheduledMonthExist(int month, int year)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -738,6 +775,7 @@ namespace Scheduler
                 }
             }
         }
+
         public bool EnoughInfo(DateTime date)
         {
             if(GetNumberOfOffEmployees(date) + GetNumberOfSickEmployees(date) + GetNumberOfVacaEmployees(date) > 0)
@@ -747,6 +785,11 @@ namespace Scheduler
             return false;
         }
 
+        /// <summary>
+        /// Checks if an employee has worked late during the week
+        /// </summary>
+        /// <param name="employee">employee object to be checked</param>
+        /// <returns>true or false</returns>
         public bool HasWorkedLate(Employee employee)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -773,6 +816,13 @@ namespace Scheduler
             }
         }
 
+        /// <summary>
+        /// Checks if an employee has a vacation of the given range
+        /// </summary>
+        /// <param name="employeeid">employee to check</param>
+        /// <param name="start">begining ot the range of dates</param>
+        /// <param name="end">end of the range of dates</param>
+        /// <returns>true or false</returns>
         public bool DoesVacationExist(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -801,6 +851,14 @@ namespace Scheduler
                 }
             }
         }
+
+        /// <summary>
+        /// Checks if an employe has an off day/s of the given range
+        /// </summary>
+        /// <param name="employeeid">employee to check</param>
+        /// <param name="start">begining of the range of dates</param>
+        /// <param name="end">end of the range of dates</param>
+        /// <returns>true or false</returns>
         public bool DoesOffDayExist(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
@@ -829,6 +887,14 @@ namespace Scheduler
                 }
             }
         }
+
+        /// <summary>
+        /// Checks if an employee has a sick day/s of the given range
+        /// </summary>
+        /// <param name="employeeid">employee to check</param>
+        /// <param name="start">begining of range</param>
+        /// <param name="end">ending of range</param>
+        /// <returns>tur or false</returns>
         public bool DoesSickDayExist(int employeeid, DateTime start, DateTime end)
         {
             MySqlConnection conn = new MySqlConnection(Repository.ConnStr);
